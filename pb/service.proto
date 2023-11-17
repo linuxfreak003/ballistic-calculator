@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+service BallisticService {
+  rpc CreateBullet(CreateBulletRequest) returns (CreateBulletResponse) {
+    option (google.api.http) = {
+      post: "/bullets/{bullet_id}"
+      body: "*"
+    };
+  }
+}
+
+message CreateBulletRequest {
+  Bullet bullet = 1;
+}
+
+message CreateBulletResponse {
+  Bullet bullet = 1;
+}
+
+message Bullet {
+  int64 bullet_id = 1;
+}
