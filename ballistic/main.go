@@ -5,14 +5,19 @@ import (
 	"net"
 
 	"github.com/linuxfreak003/ballistic-calculator/adapters/proto"
+	"github.com/linuxfreak003/ballistic-calculator/adapters/sqlite"
 	"github.com/linuxfreak003/ballistic-calculator/domain"
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	s := &domain.Service{}
-	protoService := proto.NewService(s)
+	r, err := sqlite.NewRepository("sql.db")
+	if err != nil {
+		log.Fatalf("could not create repository: %v", err)
+	}
+	d := domain.NewService(r)
+	protoService := proto.NewService(d)
 
 	lis, err := net.Listen("tcp", "localhost:50051")
 	if err != nil {

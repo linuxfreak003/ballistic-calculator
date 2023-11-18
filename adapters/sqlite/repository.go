@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/linuxfreak003/ballistic-calculator/ports"
+	ports "github.com/linuxfreak003/ballistic-calculator/ports/repository"
 	_ "github.com/mattn/go-sqlite3" // sqlite3
 )
 
