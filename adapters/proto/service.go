@@ -2,6 +2,7 @@ package proto
 
 import (
 	"context"
+	"log"
 
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 	"github.com/linuxfreak003/ballistic-calculator/ports"
@@ -26,5 +27,6 @@ type unimplementedBallisticServiceServer struct {
 
 // CreateBullet ...
 func (s *Service) CreateBullet(ctx context.Context, in *pb.CreateBulletRequest) (*pb.CreateBulletResponse, error) {
+	log.Printf("create_bullet called")
 	return s.CreateBullet(ctx, in)
 }

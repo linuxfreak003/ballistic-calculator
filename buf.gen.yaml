@@ -3,7 +3,12 @@ managed:
   enabled: true
   go_package_prefix:
     default: github.com/linuxfreak003/ballistic-calculator
+    except:
+      - buf.build/googleapis/googleapis
 plugins:
+  - plugin: buf.build/grpc-ecosystem/gateway:v2.18.1
+    out: .
+    opt: paths=source_relative
   - plugin: buf.build/protocolbuffers/go
     out:  .
     opt: paths=source_relative

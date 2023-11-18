@@ -2,6 +2,8 @@ package domain
 
 import (
 	"context"
+	"fmt"
+	"log"
 
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 )
@@ -11,5 +13,6 @@ type Service struct{}
 
 // CreateBullet ...
 func (*Service) CreateBullet(context.Context, *pb.CreateBulletRequest) (*pb.CreateBulletResponse, error) {
-	return nil, nil
+	log.Printf("unimplemented in domain")
+	return nil, fmt.Errorf("Unimplemented")
 }
