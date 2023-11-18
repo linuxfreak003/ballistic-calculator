@@ -24,7 +24,7 @@ type unimplementedBallisticServiceServer struct {
 	pb.UnimplementedBallisticServiceServer
 }
 
-// CreateBullet ...
-func (s *Service) CreateBullet(ctx context.Context, in *pb.CreateBulletRequest) (*pb.CreateBulletResponse, error) {
-	return s.domain.CreateBullet(ctx, in)
+// CreateLoad ...
+func (s *Service) CreateLoad(ctx context.Context, in *pb.CreateLoadRequest) (*pb.CreateLoadResponse, error) {
+	return s.domain.CreateLoad(ctx, in)
 }

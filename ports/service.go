@@ -6,6 +6,7 @@ import (
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 )
 
+// Service ...
 type Service interface {
-	CreateBullet(context.Context, *pb.CreateBulletRequest) (*pb.CreateBulletResponse, error)
+	CreateLoad(context.Context, *pb.CreateLoadRequest) (*pb.CreateLoadResponse, error)
 }

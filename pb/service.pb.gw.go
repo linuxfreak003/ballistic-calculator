@@ -31,8 +31,8 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_BallisticService_CreateBullet_0(ctx context.Context, marshaler runtime.Marshaler, client BallisticServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateBulletRequest
+func request_BallisticService_CreateLoad_0(ctx context.Context, marshaler runtime.Marshaler, client BallisticServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateLoadRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -43,13 +43,13 @@ func request_BallisticService_CreateBullet_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateBullet(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateLoad(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_BallisticService_CreateBullet_0(ctx context.Context, marshaler runtime.Marshaler, server BallisticServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateBulletRequest
+func local_request_BallisticService_CreateLoad_0(ctx context.Context, marshaler runtime.Marshaler, server BallisticServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateLoadRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -60,7 +60,7 @@ func local_request_BallisticService_CreateBullet_0(ctx context.Context, marshale
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateBullet(ctx, &protoReq)
+	msg, err := server.CreateLoad(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -71,7 +71,7 @@ func local_request_BallisticService_CreateBullet_0(ctx context.Context, marshale
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterBallisticServiceHandlerFromEndpoint instead.
 func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server BallisticServiceServer) error {
 
-	mux.Handle("POST", pattern_BallisticService_CreateBullet_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_BallisticService_CreateLoad_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -79,12 +79,12 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.BallisticService/CreateBullet", runtime.WithHTTPPathPattern("/ballistic/createbullet"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.BallisticService/CreateLoad", runtime.WithHTTPPathPattern("/ballistic/createload"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_BallisticService_CreateBullet_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_BallisticService_CreateLoad_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -92,7 +92,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 			return
 		}
 
-		forward_BallisticService_CreateBullet_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BallisticService_CreateLoad_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -137,25 +137,25 @@ func RegisterBallisticServiceHandler(ctx context.Context, mux *runtime.ServeMux,
 // "BallisticServiceClient" to call the correct interceptors.
 func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client BallisticServiceClient) error {
 
-	mux.Handle("POST", pattern_BallisticService_CreateBullet_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_BallisticService_CreateLoad_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.BallisticService/CreateBullet", runtime.WithHTTPPathPattern("/ballistic/createbullet"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.BallisticService/CreateLoad", runtime.WithHTTPPathPattern("/ballistic/createload"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_BallisticService_CreateBullet_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_BallisticService_CreateLoad_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_BallisticService_CreateBullet_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_BallisticService_CreateLoad_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -163,9 +163,9 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 }
 
 var (
-	pattern_BallisticService_CreateBullet_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createbullet"}, ""))
+	pattern_BallisticService_CreateLoad_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createload"}, ""))
 )
 
 var (
-	forward_BallisticService_CreateBullet_0 = runtime.ForwardResponseMessage
+	forward_BallisticService_CreateLoad_0 = runtime.ForwardResponseMessage
 )

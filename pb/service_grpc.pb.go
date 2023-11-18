@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	BallisticService_CreateBullet_FullMethodName = "/BallisticService/CreateBullet"
+	BallisticService_CreateLoad_FullMethodName = "/BallisticService/CreateLoad"
 )
 
 // BallisticServiceClient is the client API for BallisticService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BallisticServiceClient interface {
-	CreateBullet(ctx context.Context, in *CreateBulletRequest, opts ...grpc.CallOption) (*CreateBulletResponse, error)
+	CreateLoad(ctx context.Context, in *CreateLoadRequest, opts ...grpc.CallOption) (*CreateLoadResponse, error)
 }
 
 type ballisticServiceClient struct {
@@ -37,9 +37,9 @@ func NewBallisticServiceClient(cc grpc.ClientConnInterface) BallisticServiceClie
 	return &ballisticServiceClient{cc}
 }
 
-func (c *ballisticServiceClient) CreateBullet(ctx context.Context, in *CreateBulletRequest, opts ...grpc.CallOption) (*CreateBulletResponse, error) {
-	out := new(CreateBulletResponse)
-	err := c.cc.Invoke(ctx, BallisticService_CreateBullet_FullMethodName, in, out, opts...)
+func (c *ballisticServiceClient) CreateLoad(ctx context.Context, in *CreateLoadRequest, opts ...grpc.CallOption) (*CreateLoadResponse, error) {
+	out := new(CreateLoadResponse)
+	err := c.cc.Invoke(ctx, BallisticService_CreateLoad_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *ballisticServiceClient) CreateBullet(ctx context.Context, in *CreateBul
 // All implementations must embed UnimplementedBallisticServiceServer
 // for forward compatibility
 type BallisticServiceServer interface {
-	CreateBullet(context.Context, *CreateBulletRequest) (*CreateBulletResponse, error)
+	CreateLoad(context.Context, *CreateLoadRequest) (*CreateLoadResponse, error)
 	mustEmbedUnimplementedBallisticServiceServer()
 }
 
@@ -58,8 +58,8 @@ type BallisticServiceServer interface {
 type UnimplementedBallisticServiceServer struct {
 }
 
-func (UnimplementedBallisticServiceServer) CreateBullet(context.Context, *CreateBulletRequest) (*CreateBulletResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBullet not implemented")
+func (UnimplementedBallisticServiceServer) CreateLoad(context.Context, *CreateLoadRequest) (*CreateLoadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLoad not implemented")
 }
 func (UnimplementedBallisticServiceServer) mustEmbedUnimplementedBallisticServiceServer() {}
 
@@ -74,20 +74,20 @@ func RegisterBallisticServiceServer(s grpc.ServiceRegistrar, srv BallisticServic
 	s.RegisterService(&BallisticService_ServiceDesc, srv)
 }
 
-func _BallisticService_CreateBullet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateBulletRequest)
+func _BallisticService_CreateLoad_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLoadRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BallisticServiceServer).CreateBullet(ctx, in)
+		return srv.(BallisticServiceServer).CreateLoad(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: BallisticService_CreateBullet_FullMethodName,
+		FullMethod: BallisticService_CreateLoad_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BallisticServiceServer).CreateBullet(ctx, req.(*CreateBulletRequest))
+		return srv.(BallisticServiceServer).CreateLoad(ctx, req.(*CreateLoadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -100,8 +100,8 @@ var BallisticService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*BallisticServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateBullet",
-			Handler:    _BallisticService_CreateBullet_Handler,
+			MethodName: "CreateLoad",
+			Handler:    _BallisticService_CreateLoad_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
