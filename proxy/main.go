@@ -10,18 +10,21 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 var (
 	ballisticEndpoint = flag.String("ballistic-endpoint", "localhost:50051", "endpoint of ballsitic")
 )
 
+// RunEndPoint ...
 func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
 	mux := runtime.NewServeMux(opts...)
-	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
+	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 	err := pb.RegisterBallisticServiceHandlerFromEndpoint(ctx, mux, *ballisticEndpoint, dialOpts)
 	if err != nil {
 		return err

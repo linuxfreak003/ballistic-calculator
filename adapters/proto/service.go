@@ -28,5 +28,5 @@ type unimplementedBallisticServiceServer struct {
 // CreateBullet ...
 func (s *Service) CreateBullet(ctx context.Context, in *pb.CreateBulletRequest) (*pb.CreateBulletResponse, error) {
 	log.Printf("create_bullet called")
-	return s.CreateBullet(ctx, in)
+	return s.domain.CreateBullet(ctx, in)
 }

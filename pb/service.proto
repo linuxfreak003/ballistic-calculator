@@ -4,11 +4,9 @@ import "google/api/annotations.proto";
 
 service BallisticService {
   rpc CreateBullet(CreateBulletRequest) returns (CreateBulletResponse) {
-    option (google.api.http) = {
-      post: "/bullets/{bullet.bullet_id}"
-      body: "*"
-    };
-  }
+    option (google.api.http).post = "/ballistic/createbullet";
+    option (google.api.http).body = "*";
+  };
 }
 
 message CreateBulletRequest {

@@ -43,23 +43,6 @@ func request_BallisticService_CreateBullet_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["bullet.bullet_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "bullet.bullet_id")
-	}
-
-	err = runtime.PopulateFieldFromPath(&protoReq, "bullet.bullet_id", val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "bullet.bullet_id", err)
-	}
-
 	msg, err := client.CreateBullet(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -75,23 +58,6 @@ func local_request_BallisticService_CreateBullet_0(ctx context.Context, marshale
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["bullet.bullet_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "bullet.bullet_id")
-	}
-
-	err = runtime.PopulateFieldFromPath(&protoReq, "bullet.bullet_id", val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "bullet.bullet_id", err)
 	}
 
 	msg, err := server.CreateBullet(ctx, &protoReq)
@@ -113,7 +79,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.BallisticService/CreateBullet", runtime.WithHTTPPathPattern("/bullets/{bullet.bullet_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.BallisticService/CreateBullet", runtime.WithHTTPPathPattern("/ballistic/createbullet"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -177,7 +143,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.BallisticService/CreateBullet", runtime.WithHTTPPathPattern("/bullets/{bullet.bullet_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.BallisticService/CreateBullet", runtime.WithHTTPPathPattern("/ballistic/createbullet"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -197,7 +163,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 }
 
 var (
-	pattern_BallisticService_CreateBullet_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"bullets", "bullet.bullet_id"}, ""))
+	pattern_BallisticService_CreateBullet_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createbullet"}, ""))
 )
 
 var (
