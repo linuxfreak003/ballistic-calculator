@@ -4,8 +4,8 @@ go 1.21.4
 
 require (
 	github.com/golang/glog v1.1.2
-	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
+	github.com/mattn/go-sqlite3 v1.14.18
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
