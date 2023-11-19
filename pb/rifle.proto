@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pb;
+
+message CreateRifleRequest {
+  Rifle rifle = 1;
+}
+
+message CreateRifleResponse {
+  Rifle rifle = 1;
+}
+
+message ListRiflesRequest {}
+
+message ListRiflesResponse {
+  repeated Rifle rifles = 1;
+}
+
+message Rifle {
+  int64 rifle_id = 1;
+  string name = 2;
+  double sight_height = 3;
+  double barrel_twist = 4;
+  bool twist_direction_left = 5;
+  double zero_range = 6;
+}

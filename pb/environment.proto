@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package pb;
+
+message CreateEnvironmentRequest {
+  Environment environment = 1;
+}
+
+message CreateEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message ListEnvironmentsRequest {}
+
+message ListEnvironmentsResponse {
+  repeated Environment environments = 1;
+}
+
+message Environment {
+  int64 environment_id = 1;
+  double temperature = 2;
+  int64 altitude = 3;
+  double pressure = 4;
+  double humidity = 5;
+  double wind_angle = 6;
+  double wind_speed = 7;
+  bool pressure_is_absolute = 8;
+  double latitude = 9;
+  double azimuth = 10;
+}

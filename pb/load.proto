@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package pb;
+
+message CreateLoadRequest {
+  Load load = 1;
+}
+
+message CreateLoadResponse {
+  Load load = 1;
+}
+
+message ListLoadsRequest {}
+
+message ListLoadsResponse {
+  repeated Load loads = 1;
+}
+
+message Load {
+  int64 load_id = 1;
+  Bullet bullet = 2;
+  double muzzle_velocity = 3;
+  string powder = 4; // optional
+  double powder_charge = 5; // optional
+}
+
+message Bullet {
+  double caliber = 1;
+  double weight = 2;
+  BallisticCoefficient bc = 3;
+  double length = 4;
+}
+
+message BallisticCoefficient {
+  double value = 1;
+  DragFunction function = 2;
+}
+
+enum DragFunction {
+  DRAG_FUNCTION_UNSPECIFIED = 0;
+  DRAG_FUNCTION_G1 = 1;
+  DRAG_FUNCTION_G7 = 7;
+}

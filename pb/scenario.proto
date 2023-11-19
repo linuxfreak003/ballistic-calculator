@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package pb;
+
+message CreateScenarioRequest {
+  Scenario scenario = 1;
+}
+
+message CreateScenarioResponse {
+  Scenario scenario = 1;
+}
+
+message ListScenariosRequest {}
+
+message ListScenariosResponse {
+  repeated Scenario scenarios = 1;
+}
+
+message Scenario {
+  int64 scenario_id = 1;
+  string name = 2;
+  int64 environment_id = 3;
+  int64 rifle_id = 4;
+  int64 load_id = 5;
+}
