@@ -2,6 +2,26 @@ syntax = "proto3";
 
 package pb;
 
-message SolveRequest {}
+message SolveRequest {
+  int64 scenario_id = 1;
+  bool include_spin_drift = 2;
+  bool include_coriolis = 3;
+}
 
-message SolveResponse {}
+message SolveResponse {
+  repeated Solution solutions = 1;
+}
+
+message Solution {
+  int64 range = 1; // Range in yards
+  double raw_range = 2; // Range in yards (for calculations)
+  double drop = 3; // Bullet drop in inches
+  double drop_moa = 4; // Bullet drop in MOA
+  double time = 5; // Time of flight in seconds
+  double windage = 6; // Windage compensation in inches
+  double windage_moa = 7; // Windage compensation in MOA
+  double energy = 8; // Energy in ft*lbs
+  double velocity = 9; // Velocity in fps
+  double velocity_x = 10; // Velocity X-component
+  double velocity_y = 11; // Velocity Y-component
+}
