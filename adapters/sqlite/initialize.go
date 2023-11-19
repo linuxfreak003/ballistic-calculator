@@ -59,7 +59,10 @@ func InitializeDatabase(db *sql.DB) error {
 		name TEXT,
 		environment_id INTEGER,
 		rifle_id INTEGER,
-		load_id INTEGER
+		load_id INTEGER,
+		FOREIGN KEY(environment_id) REFERENCES environments(id),
+		FOREIGN KEY(rifle_id) REFERENCES rifles(id),
+		FOREIGN KEY(load_id) REFERENCES loads(id)
 	)`
 	_, err = db.ExecContext(ctx, query)
 	if err != nil {
