@@ -1,6 +1,9 @@
 package repository
 
-import "github.com/linuxfreak003/ballistic-calculator/pb"
+import (
+	"github.com/linuxfreak003/ballistic-calculator/pb"
+	"gitlab.com/linuxfreak003/ballistic"
+)
 
 // Rifle contains all the variables of the rifle
 type Rifle struct {
@@ -34,6 +37,21 @@ func (l *Rifle) ToProto() *pb.Rifle {
 	}
 	return &pb.Rifle{
 		RifleId:            l.RifleId,
+		Name:               l.Name,
+		SightHeight:        l.SightHeight,
+		BarrelTwist:        l.BarrelTwist,
+		TwistDirectionLeft: l.TwistDirectionLeft,
+		ZeroRange:          l.ZeroRange,
+	}
+}
+
+// ToBallistic ...
+func (l *Rifle) ToBallistic() *ballistic.Rifle {
+	if l == nil {
+		return nil
+	}
+	return &ballistic.Rifle{
+		Id:                 int(l.RifleId),
 		Name:               l.Name,
 		SightHeight:        l.SightHeight,
 		BarrelTwist:        l.BarrelTwist,

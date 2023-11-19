@@ -1,6 +1,9 @@
 package repository
 
-import "github.com/linuxfreak003/ballistic-calculator/pb"
+import (
+	"github.com/linuxfreak003/ballistic-calculator/pb"
+	"gitlab.com/linuxfreak003/ballistic"
+)
 
 // Load includes relevant data about the load
 type Load struct {
@@ -56,6 +59,26 @@ func (l *Load) ToProto() *pb.Load {
 			Bc: &pb.BallisticCoefficient{
 				Value:    l.Bullet.BC.Value,
 				Function: pb.DragFunction(l.Bullet.BC.DragFunc),
+			},
+			Length: l.Bullet.Length,
+		},
+		MuzzleVelocity: l.MuzzleVelocity,
+	}
+}
+
+// ToBallistic ...
+func (l *Load) ToBallistic() *ballistic.Load {
+	if l == nil {
+		return nil
+	}
+	return &ballistic.Load{
+		Id: int(l.LoadId),
+		Bullet: &ballistic.Bullet{
+			Caliber: l.Bullet.Caliber,
+			Weight:  l.Bullet.Weight,
+			BC: &ballistic.BallisticCoefficient{
+				Value:    l.Bullet.BC.Value,
+				DragFunc: ballistic.DragFunction(l.Bullet.BC.DragFunc),
 			},
 			Length: l.Bullet.Length,
 		},

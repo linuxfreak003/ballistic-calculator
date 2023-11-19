@@ -95,12 +95,52 @@ func (r *repo) ListLoads(ctx context.Context) (loads []*ports.Load, err error) {
 	return
 }
 
+// GetLoad ...
+func (r *repo) GetLoad(ctx context.Context, id int64) (*ports.Load, error) {
+	return nil, fmt.Errorf("DEATH")
+}
+
 // CreateRifle ...
-func (r *repo) CreateRifle(ctx context.Context, rifle *ports.Rifle) (int64, error) {
+func (r *repo) CreateRifle(ctx context.Context, in *ports.Rifle) (int64, error) {
 	return 0, fmt.Errorf("DEATH")
 }
 
 // ListRifles ...
 func (r *repo) ListRifles(ctx context.Context) ([]*ports.Rifle, error) {
+	return nil, fmt.Errorf("DEATH")
+}
+
+// GetRifle ...
+func (r *repo) GetRifle(ctx context.Context, id int64) (*ports.Rifle, error) {
+	return nil, fmt.Errorf("DEATH")
+}
+
+// CreateEnvironment ...
+func (r *repo) CreateEnvironment(ctx context.Context, in *ports.Environment) (int64, error) {
+	return 0, fmt.Errorf("DEATH")
+}
+
+// ListEnvironments ...
+func (r *repo) ListEnvironments(ctx context.Context) ([]*ports.Environment, error) {
+	return nil, fmt.Errorf("DEATH")
+}
+
+// GetEnvironment ...
+func (r *repo) GetEnvironment(ctx context.Context, id int64) (*ports.Environment, error) {
+	return nil, fmt.Errorf("DEATH")
+}
+
+// CreateScenario ...
+func (r *repo) CreateScenario(ctx context.Context, in *ports.Scenario) (int64, error) {
+	return 0, fmt.Errorf("DEATH")
+}
+
+// ListScenarios ...
+func (r *repo) ListScenarios(ctx context.Context) ([]*ports.Scenario, error) {
+	return nil, fmt.Errorf("DEATH")
+}
+
+// GetScenario ...
+func (r *repo) GetScenario(ctx context.Context, id int64) (*ports.Scenario, error) {
 	return nil, fmt.Errorf("DEATH")
 }
