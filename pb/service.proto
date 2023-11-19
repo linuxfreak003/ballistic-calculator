@@ -1,44 +1,32 @@
 syntax = "proto3";
 
+package pb;
+
 import "google/api/annotations.proto";
+import "pb/load.proto";
+import "pb/rifle.proto";
 
 service BallisticService {
+  // Rifle Methods
+  rpc CreateRifle(CreateRifleRequest) returns (CreateRifleResponse) {
+    option (google.api.http).post = "/ballistic/createrifle";
+    option (google.api.http).body = "*";
+  };
+  rpc ListRifles(ListRiflesRequest) returns (ListRiflesResponse) {
+    option (google.api.http).post = "/ballistic/listrifles";
+    option (google.api.http).body = "*";
+  };
+  // Load Methods
   rpc CreateLoad(CreateLoadRequest) returns (CreateLoadResponse) {
     option (google.api.http).post = "/ballistic/createload";
     option (google.api.http).body = "*";
   };
+  rpc ListLoads(ListLoadsRequest) returns (ListLoadsResponse) {
+    option (google.api.http).post = "/ballistic/listloads";
+    option (google.api.http).body = "*";
+  };
+  // Environment Methods
+
+  // Scenario Methods
 }
 
-message CreateLoadRequest {
-  Load load = 1;
-}
-
-message CreateLoadResponse {
-  Load load = 1;
-}
-
-message Load {
-  int64 load_id = 1;
-  Bullet bullet = 2;
-  float muzzle_velocity = 3;
-  string powder = 4; // optional
-  float powder_charge = 5; // optional
-}
-
-message Bullet {
-  float caliber = 1;
-  float weight = 2;
-  BallisticCoefficient bc = 3;
-  float length = 4;
-}
-
-message BallisticCoefficient {
-  float value = 1;
-  DragFunction function = 2;
-}
-
-enum DragFunction {
-  DRAG_FUNCTION_UNSPECIFIED = 0;
-  DRAG_FUNCTION_G1 = 1;
-  DRAG_FUNCTION_G7 = 7;
-}

@@ -19,14 +19,22 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	BallisticService_CreateLoad_FullMethodName = "/BallisticService/CreateLoad"
+	BallisticService_CreateRifle_FullMethodName = "/pb.BallisticService/CreateRifle"
+	BallisticService_ListRifles_FullMethodName  = "/pb.BallisticService/ListRifles"
+	BallisticService_CreateLoad_FullMethodName  = "/pb.BallisticService/CreateLoad"
+	BallisticService_ListLoads_FullMethodName   = "/pb.BallisticService/ListLoads"
 )
 
 // BallisticServiceClient is the client API for BallisticService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BallisticServiceClient interface {
+	// Rifle Methods
+	CreateRifle(ctx context.Context, in *CreateRifleRequest, opts ...grpc.CallOption) (*CreateRifleResponse, error)
+	ListRifles(ctx context.Context, in *ListRiflesRequest, opts ...grpc.CallOption) (*ListRiflesResponse, error)
+	// Load Methods
 	CreateLoad(ctx context.Context, in *CreateLoadRequest, opts ...grpc.CallOption) (*CreateLoadResponse, error)
+	ListLoads(ctx context.Context, in *ListLoadsRequest, opts ...grpc.CallOption) (*ListLoadsResponse, error)
 }
 
 type ballisticServiceClient struct {
@@ -35,6 +43,24 @@ type ballisticServiceClient struct {
 
 func NewBallisticServiceClient(cc grpc.ClientConnInterface) BallisticServiceClient {
 	return &ballisticServiceClient{cc}
+}
+
+func (c *ballisticServiceClient) CreateRifle(ctx context.Context, in *CreateRifleRequest, opts ...grpc.CallOption) (*CreateRifleResponse, error) {
+	out := new(CreateRifleResponse)
+	err := c.cc.Invoke(ctx, BallisticService_CreateRifle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ballisticServiceClient) ListRifles(ctx context.Context, in *ListRiflesRequest, opts ...grpc.CallOption) (*ListRiflesResponse, error) {
+	out := new(ListRiflesResponse)
+	err := c.cc.Invoke(ctx, BallisticService_ListRifles_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *ballisticServiceClient) CreateLoad(ctx context.Context, in *CreateLoadRequest, opts ...grpc.CallOption) (*CreateLoadResponse, error) {
@@ -46,11 +72,25 @@ func (c *ballisticServiceClient) CreateLoad(ctx context.Context, in *CreateLoadR
 	return out, nil
 }
 
+func (c *ballisticServiceClient) ListLoads(ctx context.Context, in *ListLoadsRequest, opts ...grpc.CallOption) (*ListLoadsResponse, error) {
+	out := new(ListLoadsResponse)
+	err := c.cc.Invoke(ctx, BallisticService_ListLoads_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BallisticServiceServer is the server API for BallisticService service.
 // All implementations must embed UnimplementedBallisticServiceServer
 // for forward compatibility
 type BallisticServiceServer interface {
+	// Rifle Methods
+	CreateRifle(context.Context, *CreateRifleRequest) (*CreateRifleResponse, error)
+	ListRifles(context.Context, *ListRiflesRequest) (*ListRiflesResponse, error)
+	// Load Methods
 	CreateLoad(context.Context, *CreateLoadRequest) (*CreateLoadResponse, error)
+	ListLoads(context.Context, *ListLoadsRequest) (*ListLoadsResponse, error)
 	mustEmbedUnimplementedBallisticServiceServer()
 }
 
@@ -58,8 +98,17 @@ type BallisticServiceServer interface {
 type UnimplementedBallisticServiceServer struct {
 }
 
+func (UnimplementedBallisticServiceServer) CreateRifle(context.Context, *CreateRifleRequest) (*CreateRifleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRifle not implemented")
+}
+func (UnimplementedBallisticServiceServer) ListRifles(context.Context, *ListRiflesRequest) (*ListRiflesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRifles not implemented")
+}
 func (UnimplementedBallisticServiceServer) CreateLoad(context.Context, *CreateLoadRequest) (*CreateLoadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoad not implemented")
+}
+func (UnimplementedBallisticServiceServer) ListLoads(context.Context, *ListLoadsRequest) (*ListLoadsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLoads not implemented")
 }
 func (UnimplementedBallisticServiceServer) mustEmbedUnimplementedBallisticServiceServer() {}
 
@@ -72,6 +121,42 @@ type UnsafeBallisticServiceServer interface {
 
 func RegisterBallisticServiceServer(s grpc.ServiceRegistrar, srv BallisticServiceServer) {
 	s.RegisterService(&BallisticService_ServiceDesc, srv)
+}
+
+func _BallisticService_CreateRifle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRifleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).CreateRifle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_CreateRifle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).CreateRifle(ctx, req.(*CreateRifleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BallisticService_ListRifles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRiflesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).ListRifles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_ListRifles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).ListRifles(ctx, req.(*ListRiflesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _BallisticService_CreateLoad_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -92,16 +177,46 @@ func _BallisticService_CreateLoad_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BallisticService_ListLoads_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLoadsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).ListLoads(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_ListLoads_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).ListLoads(ctx, req.(*ListLoadsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BallisticService_ServiceDesc is the grpc.ServiceDesc for BallisticService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BallisticService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "BallisticService",
+	ServiceName: "pb.BallisticService",
 	HandlerType: (*BallisticServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CreateRifle",
+			Handler:    _BallisticService_CreateRifle_Handler,
+		},
+		{
+			MethodName: "ListRifles",
+			Handler:    _BallisticService_ListRifles_Handler,
+		},
+		{
 			MethodName: "CreateLoad",
 			Handler:    _BallisticService_CreateLoad_Handler,
+		},
+		{
+			MethodName: "ListLoads",
+			Handler:    _BallisticService_ListLoads_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

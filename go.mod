@@ -5,6 +5,7 @@ go 1.21.4
 require (
 	github.com/golang/glog v1.1.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
+	github.com/linuxfreak003/util v0.0.7
 	github.com/mattn/go-sqlite3 v1.14.18
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17
 	google.golang.org/grpc v1.59.0
@@ -13,6 +14,7 @@ require (
 
 require (
 	github.com/golang/protobuf v1.5.3 // indirect
+	golang.org/x/exp v0.0.0-20221002003631-540bb7301a08 // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

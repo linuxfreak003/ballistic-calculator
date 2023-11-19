@@ -9,11 +9,11 @@ import (
 
 func TestLoad(t *testing.T) {
 	t.Run("FromProto", func(t *testing.T) {
-		var l repository.Load
+		var l *repository.Load
 		pbLoad := &pb.Load{
 			LoadId: 1,
 		}
-		l.FromProto(pbLoad)
+		l = l.FromProto(pbLoad)
 		if l.LoadId != 1 {
 			t.Fatal("bad error")
 		}

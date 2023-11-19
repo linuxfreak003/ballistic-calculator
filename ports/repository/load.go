@@ -2,48 +2,52 @@ package repository
 
 import "github.com/linuxfreak003/ballistic-calculator/pb"
 
-// Load ...
+// Load includes relevant data about the load
 type Load struct {
 	LoadId         int64
-	Bullet         Bullet
-	MuzzleVelocity float32
+	Bullet         *Bullet
+	MuzzleVelocity float64
 }
 
 // Bullet ...
 type Bullet struct {
-	Caliber float32
-	Weight  float32
-	BC      Coefficient
-	Length  float32
+	Caliber float64
+	Weight  float64
+	BC      *Coefficient
+	Length  float64
 }
 
 // Coefficient ...
 type Coefficient struct {
-	Value    float32
+	Value    float64
 	DragFunc int
 }
 
 // FromProto ...
-func (l *Load) FromProto(proto *pb.Load) {
+func (l *Load) FromProto(proto *pb.Load) *Load {
 	if l == nil {
-		(*l) = Load{}
+		l = new(Load)
 	}
 
 	l.LoadId = proto.GetLoadId()
-	l.Bullet = Bullet{
+	l.Bullet = &Bullet{
 		Caliber: proto.GetBullet().GetCaliber(),
 		Weight:  proto.GetBullet().GetWeight(),
-		BC: Coefficient{
+		BC: &Coefficient{
 			Value:    proto.GetBullet().GetBc().GetValue(),
 			DragFunc: int(proto.GetBullet().GetBc().GetFunction()),
 		},
 		Length: proto.GetBullet().GetLength(),
 	}
 	l.MuzzleVelocity = proto.GetMuzzleVelocity()
+	return l
 }
 
 // ToProto ...
 func (l *Load) ToProto() *pb.Load {
+	if l == nil {
+		return nil
+	}
 	return &pb.Load{
 		LoadId: l.LoadId,
 		Bullet: &pb.Bullet{
