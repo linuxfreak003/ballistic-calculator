@@ -7,6 +7,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
 	github.com/linuxfreak003/util v0.0.7
 	github.com/mattn/go-sqlite3 v1.14.18
+	github.com/sirupsen/logrus v1.9.3
 	gitlab.com/linuxfreak003/ballistic v1.0.2
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17
 	google.golang.org/grpc v1.59.0

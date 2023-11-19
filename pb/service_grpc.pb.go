@@ -22,12 +22,16 @@ const (
 	BallisticService_Solve_FullMethodName             = "/pb.BallisticService/Solve"
 	BallisticService_CreateRifle_FullMethodName       = "/pb.BallisticService/CreateRifle"
 	BallisticService_ListRifles_FullMethodName        = "/pb.BallisticService/ListRifles"
+	BallisticService_GetRifle_FullMethodName          = "/pb.BallisticService/GetRifle"
 	BallisticService_CreateLoad_FullMethodName        = "/pb.BallisticService/CreateLoad"
 	BallisticService_ListLoads_FullMethodName         = "/pb.BallisticService/ListLoads"
+	BallisticService_GetLoad_FullMethodName           = "/pb.BallisticService/GetLoad"
 	BallisticService_CreateEnvironment_FullMethodName = "/pb.BallisticService/CreateEnvironment"
 	BallisticService_ListEnvironments_FullMethodName  = "/pb.BallisticService/ListEnvironments"
+	BallisticService_GetEnvironment_FullMethodName    = "/pb.BallisticService/GetEnvironment"
 	BallisticService_CreateScenario_FullMethodName    = "/pb.BallisticService/CreateScenario"
 	BallisticService_ListScenarios_FullMethodName     = "/pb.BallisticService/ListScenarios"
+	BallisticService_GetScenario_FullMethodName       = "/pb.BallisticService/GetScenario"
 )
 
 // BallisticServiceClient is the client API for BallisticService service.
@@ -38,15 +42,19 @@ type BallisticServiceClient interface {
 	// Rifle Methods
 	CreateRifle(ctx context.Context, in *CreateRifleRequest, opts ...grpc.CallOption) (*CreateRifleResponse, error)
 	ListRifles(ctx context.Context, in *ListRiflesRequest, opts ...grpc.CallOption) (*ListRiflesResponse, error)
+	GetRifle(ctx context.Context, in *GetRifleRequest, opts ...grpc.CallOption) (*GetRifleResponse, error)
 	// Load Methods
 	CreateLoad(ctx context.Context, in *CreateLoadRequest, opts ...grpc.CallOption) (*CreateLoadResponse, error)
 	ListLoads(ctx context.Context, in *ListLoadsRequest, opts ...grpc.CallOption) (*ListLoadsResponse, error)
+	GetLoad(ctx context.Context, in *GetLoadRequest, opts ...grpc.CallOption) (*GetLoadResponse, error)
 	// Environment Methods
 	CreateEnvironment(ctx context.Context, in *CreateEnvironmentRequest, opts ...grpc.CallOption) (*CreateEnvironmentResponse, error)
 	ListEnvironments(ctx context.Context, in *ListEnvironmentsRequest, opts ...grpc.CallOption) (*ListEnvironmentsResponse, error)
+	GetEnvironment(ctx context.Context, in *GetEnvironmentRequest, opts ...grpc.CallOption) (*GetEnvironmentResponse, error)
 	// Scenario Methods
 	CreateScenario(ctx context.Context, in *CreateScenarioRequest, opts ...grpc.CallOption) (*CreateScenarioResponse, error)
 	ListScenarios(ctx context.Context, in *ListScenariosRequest, opts ...grpc.CallOption) (*ListScenariosResponse, error)
+	GetScenario(ctx context.Context, in *GetScenarioRequest, opts ...grpc.CallOption) (*GetScenarioResponse, error)
 }
 
 type ballisticServiceClient struct {
@@ -84,6 +92,15 @@ func (c *ballisticServiceClient) ListRifles(ctx context.Context, in *ListRiflesR
 	return out, nil
 }
 
+func (c *ballisticServiceClient) GetRifle(ctx context.Context, in *GetRifleRequest, opts ...grpc.CallOption) (*GetRifleResponse, error) {
+	out := new(GetRifleResponse)
+	err := c.cc.Invoke(ctx, BallisticService_GetRifle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *ballisticServiceClient) CreateLoad(ctx context.Context, in *CreateLoadRequest, opts ...grpc.CallOption) (*CreateLoadResponse, error) {
 	out := new(CreateLoadResponse)
 	err := c.cc.Invoke(ctx, BallisticService_CreateLoad_FullMethodName, in, out, opts...)
@@ -96,6 +113,15 @@ func (c *ballisticServiceClient) CreateLoad(ctx context.Context, in *CreateLoadR
 func (c *ballisticServiceClient) ListLoads(ctx context.Context, in *ListLoadsRequest, opts ...grpc.CallOption) (*ListLoadsResponse, error) {
 	out := new(ListLoadsResponse)
 	err := c.cc.Invoke(ctx, BallisticService_ListLoads_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ballisticServiceClient) GetLoad(ctx context.Context, in *GetLoadRequest, opts ...grpc.CallOption) (*GetLoadResponse, error) {
+	out := new(GetLoadResponse)
+	err := c.cc.Invoke(ctx, BallisticService_GetLoad_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,6 +146,15 @@ func (c *ballisticServiceClient) ListEnvironments(ctx context.Context, in *ListE
 	return out, nil
 }
 
+func (c *ballisticServiceClient) GetEnvironment(ctx context.Context, in *GetEnvironmentRequest, opts ...grpc.CallOption) (*GetEnvironmentResponse, error) {
+	out := new(GetEnvironmentResponse)
+	err := c.cc.Invoke(ctx, BallisticService_GetEnvironment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *ballisticServiceClient) CreateScenario(ctx context.Context, in *CreateScenarioRequest, opts ...grpc.CallOption) (*CreateScenarioResponse, error) {
 	out := new(CreateScenarioResponse)
 	err := c.cc.Invoke(ctx, BallisticService_CreateScenario_FullMethodName, in, out, opts...)
@@ -138,6 +173,15 @@ func (c *ballisticServiceClient) ListScenarios(ctx context.Context, in *ListScen
 	return out, nil
 }
 
+func (c *ballisticServiceClient) GetScenario(ctx context.Context, in *GetScenarioRequest, opts ...grpc.CallOption) (*GetScenarioResponse, error) {
+	out := new(GetScenarioResponse)
+	err := c.cc.Invoke(ctx, BallisticService_GetScenario_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BallisticServiceServer is the server API for BallisticService service.
 // All implementations must embed UnimplementedBallisticServiceServer
 // for forward compatibility
@@ -146,15 +190,19 @@ type BallisticServiceServer interface {
 	// Rifle Methods
 	CreateRifle(context.Context, *CreateRifleRequest) (*CreateRifleResponse, error)
 	ListRifles(context.Context, *ListRiflesRequest) (*ListRiflesResponse, error)
+	GetRifle(context.Context, *GetRifleRequest) (*GetRifleResponse, error)
 	// Load Methods
 	CreateLoad(context.Context, *CreateLoadRequest) (*CreateLoadResponse, error)
 	ListLoads(context.Context, *ListLoadsRequest) (*ListLoadsResponse, error)
+	GetLoad(context.Context, *GetLoadRequest) (*GetLoadResponse, error)
 	// Environment Methods
 	CreateEnvironment(context.Context, *CreateEnvironmentRequest) (*CreateEnvironmentResponse, error)
 	ListEnvironments(context.Context, *ListEnvironmentsRequest) (*ListEnvironmentsResponse, error)
+	GetEnvironment(context.Context, *GetEnvironmentRequest) (*GetEnvironmentResponse, error)
 	// Scenario Methods
 	CreateScenario(context.Context, *CreateScenarioRequest) (*CreateScenarioResponse, error)
 	ListScenarios(context.Context, *ListScenariosRequest) (*ListScenariosResponse, error)
+	GetScenario(context.Context, *GetScenarioRequest) (*GetScenarioResponse, error)
 	mustEmbedUnimplementedBallisticServiceServer()
 }
 
@@ -171,11 +219,17 @@ func (UnimplementedBallisticServiceServer) CreateRifle(context.Context, *CreateR
 func (UnimplementedBallisticServiceServer) ListRifles(context.Context, *ListRiflesRequest) (*ListRiflesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRifles not implemented")
 }
+func (UnimplementedBallisticServiceServer) GetRifle(context.Context, *GetRifleRequest) (*GetRifleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRifle not implemented")
+}
 func (UnimplementedBallisticServiceServer) CreateLoad(context.Context, *CreateLoadRequest) (*CreateLoadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoad not implemented")
 }
 func (UnimplementedBallisticServiceServer) ListLoads(context.Context, *ListLoadsRequest) (*ListLoadsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListLoads not implemented")
+}
+func (UnimplementedBallisticServiceServer) GetLoad(context.Context, *GetLoadRequest) (*GetLoadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLoad not implemented")
 }
 func (UnimplementedBallisticServiceServer) CreateEnvironment(context.Context, *CreateEnvironmentRequest) (*CreateEnvironmentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEnvironment not implemented")
@@ -183,11 +237,17 @@ func (UnimplementedBallisticServiceServer) CreateEnvironment(context.Context, *C
 func (UnimplementedBallisticServiceServer) ListEnvironments(context.Context, *ListEnvironmentsRequest) (*ListEnvironmentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListEnvironments not implemented")
 }
+func (UnimplementedBallisticServiceServer) GetEnvironment(context.Context, *GetEnvironmentRequest) (*GetEnvironmentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEnvironment not implemented")
+}
 func (UnimplementedBallisticServiceServer) CreateScenario(context.Context, *CreateScenarioRequest) (*CreateScenarioResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateScenario not implemented")
 }
 func (UnimplementedBallisticServiceServer) ListScenarios(context.Context, *ListScenariosRequest) (*ListScenariosResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListScenarios not implemented")
+}
+func (UnimplementedBallisticServiceServer) GetScenario(context.Context, *GetScenarioRequest) (*GetScenarioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetScenario not implemented")
 }
 func (UnimplementedBallisticServiceServer) mustEmbedUnimplementedBallisticServiceServer() {}
 
@@ -256,6 +316,24 @@ func _BallisticService_ListRifles_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BallisticService_GetRifle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRifleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).GetRifle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_GetRifle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).GetRifle(ctx, req.(*GetRifleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BallisticService_CreateLoad_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLoadRequest)
 	if err := dec(in); err != nil {
@@ -288,6 +366,24 @@ func _BallisticService_ListLoads_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BallisticServiceServer).ListLoads(ctx, req.(*ListLoadsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BallisticService_GetLoad_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).GetLoad(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_GetLoad_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).GetLoad(ctx, req.(*GetLoadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -328,6 +424,24 @@ func _BallisticService_ListEnvironments_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BallisticService_GetEnvironment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEnvironmentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).GetEnvironment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_GetEnvironment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).GetEnvironment(ctx, req.(*GetEnvironmentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BallisticService_CreateScenario_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateScenarioRequest)
 	if err := dec(in); err != nil {
@@ -364,6 +478,24 @@ func _BallisticService_ListScenarios_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BallisticService_GetScenario_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetScenarioRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).GetScenario(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_GetScenario_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).GetScenario(ctx, req.(*GetScenarioRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BallisticService_ServiceDesc is the grpc.ServiceDesc for BallisticService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -384,12 +516,20 @@ var BallisticService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _BallisticService_ListRifles_Handler,
 		},
 		{
+			MethodName: "GetRifle",
+			Handler:    _BallisticService_GetRifle_Handler,
+		},
+		{
 			MethodName: "CreateLoad",
 			Handler:    _BallisticService_CreateLoad_Handler,
 		},
 		{
 			MethodName: "ListLoads",
 			Handler:    _BallisticService_ListLoads_Handler,
+		},
+		{
+			MethodName: "GetLoad",
+			Handler:    _BallisticService_GetLoad_Handler,
 		},
 		{
 			MethodName: "CreateEnvironment",
@@ -400,12 +540,20 @@ var BallisticService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _BallisticService_ListEnvironments_Handler,
 		},
 		{
+			MethodName: "GetEnvironment",
+			Handler:    _BallisticService_GetEnvironment_Handler,
+		},
+		{
 			MethodName: "CreateScenario",
 			Handler:    _BallisticService_CreateScenario_Handler,
 		},
 		{
 			MethodName: "ListScenarios",
 			Handler:    _BallisticService_ListScenarios_Handler,
+		},
+		{
+			MethodName: "GetScenario",
+			Handler:    _BallisticService_GetScenario_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

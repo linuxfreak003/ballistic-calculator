@@ -16,6 +16,14 @@ message ListLoadsResponse {
   repeated Load loads = 1;
 }
 
+message GetLoadRequest {
+  int64 load_id = 1;
+}
+
+message GetLoadResponse {
+  Load load = 1;
+}
+
 message Load {
   int64 load_id = 1;
   Bullet bullet = 2;

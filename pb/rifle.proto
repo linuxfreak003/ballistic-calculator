@@ -16,6 +16,14 @@ message ListRiflesResponse {
   repeated Rifle rifles = 1;
 }
 
+message GetRifleRequest {
+  int64 rifle_id = 1;
+}
+
+message GetRifleResponse {
+  Rifle rifle = 1;
+}
+
 message Rifle {
   int64 rifle_id = 1;
   string name = 2;

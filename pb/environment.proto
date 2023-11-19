@@ -16,6 +16,14 @@ message ListEnvironmentsResponse {
   repeated Environment environments = 1;
 }
 
+message GetEnvironmentRequest {
+  int64 environment_id = 1;
+}
+
+message GetEnvironmentResponse {
+  Environment environment = 1;
+}
+
 message Environment {
   int64 environment_id = 1;
   double temperature = 2;

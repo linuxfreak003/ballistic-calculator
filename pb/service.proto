@@ -24,6 +24,10 @@ service BallisticService {
     option (google.api.http).post = "/ballistic/listrifles";
     option (google.api.http).body = "*";
   };
+  rpc GetRifle(GetRifleRequest) returns (GetRifleResponse) {
+    option (google.api.http).post = "/ballistic/getrifle";
+    option (google.api.http).body = "*";
+  };
 
   // Load Methods
   rpc CreateLoad(CreateLoadRequest) returns (CreateLoadResponse) {
@@ -32,6 +36,10 @@ service BallisticService {
   };
   rpc ListLoads(ListLoadsRequest) returns (ListLoadsResponse) {
     option (google.api.http).post = "/ballistic/listloads";
+    option (google.api.http).body = "*";
+  };
+  rpc GetLoad(GetLoadRequest) returns (GetLoadResponse) {
+    option (google.api.http).post = "/ballistic/getload";
     option (google.api.http).body = "*";
   };
 
@@ -44,14 +52,22 @@ service BallisticService {
     option (google.api.http).post = "/ballistic/listenvironments";
     option (google.api.http).body = "*";
   };
+  rpc GetEnvironment(GetEnvironmentRequest) returns (GetEnvironmentResponse) {
+    option (google.api.http).post = "/ballistic/getenvironment";
+    option (google.api.http).body = "*";
+  };
 
   // Scenario Methods
   rpc CreateScenario(CreateScenarioRequest) returns (CreateScenarioResponse) {
-    option (google.api.http).post = "/ballistic/createScenario";
+    option (google.api.http).post = "/ballistic/createscenario";
     option (google.api.http).body = "*";
   };
   rpc ListScenarios(ListScenariosRequest) returns (ListScenariosResponse) {
-    option (google.api.http).post = "/ballistic/listScenarios";
+    option (google.api.http).post = "/ballistic/listscenarios";
+    option (google.api.http).body = "*";
+  };
+  rpc GetScenario(GetScenarioRequest) returns (GetScenarioResponse) {
+    option (google.api.http).post = "/ballistic/getscenario";
     option (google.api.http).body = "*";
   };
 }

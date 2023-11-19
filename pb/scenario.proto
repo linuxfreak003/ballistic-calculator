@@ -16,6 +16,14 @@ message ListScenariosResponse {
   repeated Scenario scenarios = 1;
 }
 
+message GetScenarioRequest {
+  int64 scenario_id = 1;
+}
+
+message GetScenarioResponse {
+  Scenario scenario = 1;
+}
+
 message Scenario {
   int64 scenario_id = 1;
   string name = 2;
