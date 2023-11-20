@@ -63,7 +63,6 @@ func (l *Environment) ToBallistic() *ballistic.Environment {
 		return nil
 	}
 	return &ballistic.Environment{
-		Id:                 int(l.EnvironmentId),
 		Temperature:        l.Temperature,
 		Altitude:           int(l.Altitude),
 		Pressure:           l.Pressure,

@@ -51,8 +51,6 @@ func (l *Rifle) ToBallistic() *ballistic.Rifle {
 		return nil
 	}
 	return &ballistic.Rifle{
-		Id:                 int(l.RifleId),
-		Name:               l.Name,
 		SightHeight:        l.SightHeight,
 		BarrelTwist:        l.BarrelTwist,
 		TwistDirectionLeft: l.TwistDirectionLeft,

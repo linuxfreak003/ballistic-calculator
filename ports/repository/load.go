@@ -72,11 +72,10 @@ func (l *Load) ToBallistic() *ballistic.Load {
 		return nil
 	}
 	return &ballistic.Load{
-		Id: int(l.LoadId),
 		Bullet: &ballistic.Bullet{
 			Caliber: l.Bullet.Caliber,
 			Weight:  l.Bullet.Weight,
-			BC: &ballistic.BallisticCoefficient{
+			BC: &ballistic.Coefficient{
 				Value:    l.Bullet.BC.Value,
 				DragFunc: ballistic.DragFunction(l.Bullet.BC.DragFunc),
 			},
