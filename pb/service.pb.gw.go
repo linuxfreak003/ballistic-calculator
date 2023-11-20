@@ -562,7 +562,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetRifle", runtime.WithHTTPPathPattern("/ballistic/Getrifle"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetRifle", runtime.WithHTTPPathPattern("/ballistic/getrifle"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -637,7 +637,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetLoad", runtime.WithHTTPPathPattern("/ballistic/Getload"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetLoad", runtime.WithHTTPPathPattern("/ballistic/getload"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -712,7 +712,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetEnvironment", runtime.WithHTTPPathPattern("/ballistic/Getenvironment"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetEnvironment", runtime.WithHTTPPathPattern("/ballistic/getenvironment"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -737,7 +737,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/CreateScenario", runtime.WithHTTPPathPattern("/ballistic/createScenario"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/CreateScenario", runtime.WithHTTPPathPattern("/ballistic/createscenario"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -762,7 +762,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/ListScenarios", runtime.WithHTTPPathPattern("/ballistic/listScenarios"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/ListScenarios", runtime.WithHTTPPathPattern("/ballistic/listscenarios"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -787,7 +787,7 @@ func RegisterBallisticServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetScenario", runtime.WithHTTPPathPattern("/ballistic/GetScenario"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.BallisticService/GetScenario", runtime.WithHTTPPathPattern("/ballistic/getscenario"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -917,7 +917,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetRifle", runtime.WithHTTPPathPattern("/ballistic/Getrifle"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetRifle", runtime.WithHTTPPathPattern("/ballistic/getrifle"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -983,7 +983,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetLoad", runtime.WithHTTPPathPattern("/ballistic/Getload"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetLoad", runtime.WithHTTPPathPattern("/ballistic/getload"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1049,7 +1049,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetEnvironment", runtime.WithHTTPPathPattern("/ballistic/Getenvironment"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetEnvironment", runtime.WithHTTPPathPattern("/ballistic/getenvironment"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1071,7 +1071,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/CreateScenario", runtime.WithHTTPPathPattern("/ballistic/createScenario"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/CreateScenario", runtime.WithHTTPPathPattern("/ballistic/createscenario"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1093,7 +1093,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/ListScenarios", runtime.WithHTTPPathPattern("/ballistic/listScenarios"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/ListScenarios", runtime.WithHTTPPathPattern("/ballistic/listscenarios"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1115,7 +1115,7 @@ func RegisterBallisticServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetScenario", runtime.WithHTTPPathPattern("/ballistic/GetScenario"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.BallisticService/GetScenario", runtime.WithHTTPPathPattern("/ballistic/getscenario"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1141,25 +1141,25 @@ var (
 
 	pattern_BallisticService_ListRifles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "listrifles"}, ""))
 
-	pattern_BallisticService_GetRifle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "Getrifle"}, ""))
+	pattern_BallisticService_GetRifle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "getrifle"}, ""))
 
 	pattern_BallisticService_CreateLoad_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createload"}, ""))
 
 	pattern_BallisticService_ListLoads_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "listloads"}, ""))
 
-	pattern_BallisticService_GetLoad_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "Getload"}, ""))
+	pattern_BallisticService_GetLoad_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "getload"}, ""))
 
 	pattern_BallisticService_CreateEnvironment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createenvironment"}, ""))
 
 	pattern_BallisticService_ListEnvironments_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "listenvironments"}, ""))
 
-	pattern_BallisticService_GetEnvironment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "Getenvironment"}, ""))
+	pattern_BallisticService_GetEnvironment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "getenvironment"}, ""))
 
-	pattern_BallisticService_CreateScenario_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createScenario"}, ""))
+	pattern_BallisticService_CreateScenario_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "createscenario"}, ""))
 
-	pattern_BallisticService_ListScenarios_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "listScenarios"}, ""))
+	pattern_BallisticService_ListScenarios_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "listscenarios"}, ""))
 
-	pattern_BallisticService_GetScenario_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "GetScenario"}, ""))
+	pattern_BallisticService_GetScenario_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"ballistic", "getscenario"}, ""))
 )
 
 var (
