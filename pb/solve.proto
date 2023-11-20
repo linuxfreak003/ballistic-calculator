@@ -6,9 +6,22 @@ message SolveRequest {
   int64 scenario_id = 1;
   bool include_spin_drift = 2;
   bool include_coriolis = 3;
+  int64 range = 4;
 }
 
 message SolveResponse {
+  Solution solution = 1;
+}
+
+message SolveTableRequest {
+  int64 scenario_id = 1;
+  bool include_spin_drift = 2;
+  bool include_coriolis = 3;
+  int64 max_range = 4;
+  int64 increment = 5;
+}
+
+message SolveTableResponse {
   repeated Solution solutions = 1;
 }
 

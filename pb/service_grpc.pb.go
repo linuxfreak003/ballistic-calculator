@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	BallisticService_Solve_FullMethodName             = "/pb.BallisticService/Solve"
+	BallisticService_SolveTable_FullMethodName        = "/pb.BallisticService/SolveTable"
 	BallisticService_CreateRifle_FullMethodName       = "/pb.BallisticService/CreateRifle"
 	BallisticService_ListRifles_FullMethodName        = "/pb.BallisticService/ListRifles"
 	BallisticService_GetRifle_FullMethodName          = "/pb.BallisticService/GetRifle"
@@ -39,6 +40,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BallisticServiceClient interface {
 	Solve(ctx context.Context, in *SolveRequest, opts ...grpc.CallOption) (*SolveResponse, error)
+	SolveTable(ctx context.Context, in *SolveTableRequest, opts ...grpc.CallOption) (*SolveTableResponse, error)
 	// Rifle Methods
 	CreateRifle(ctx context.Context, in *CreateRifleRequest, opts ...grpc.CallOption) (*CreateRifleResponse, error)
 	ListRifles(ctx context.Context, in *ListRiflesRequest, opts ...grpc.CallOption) (*ListRiflesResponse, error)
@@ -68,6 +70,15 @@ func NewBallisticServiceClient(cc grpc.ClientConnInterface) BallisticServiceClie
 func (c *ballisticServiceClient) Solve(ctx context.Context, in *SolveRequest, opts ...grpc.CallOption) (*SolveResponse, error) {
 	out := new(SolveResponse)
 	err := c.cc.Invoke(ctx, BallisticService_Solve_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ballisticServiceClient) SolveTable(ctx context.Context, in *SolveTableRequest, opts ...grpc.CallOption) (*SolveTableResponse, error) {
+	out := new(SolveTableResponse)
+	err := c.cc.Invoke(ctx, BallisticService_SolveTable_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -187,6 +198,7 @@ func (c *ballisticServiceClient) GetScenario(ctx context.Context, in *GetScenari
 // for forward compatibility
 type BallisticServiceServer interface {
 	Solve(context.Context, *SolveRequest) (*SolveResponse, error)
+	SolveTable(context.Context, *SolveTableRequest) (*SolveTableResponse, error)
 	// Rifle Methods
 	CreateRifle(context.Context, *CreateRifleRequest) (*CreateRifleResponse, error)
 	ListRifles(context.Context, *ListRiflesRequest) (*ListRiflesResponse, error)
@@ -212,6 +224,9 @@ type UnimplementedBallisticServiceServer struct {
 
 func (UnimplementedBallisticServiceServer) Solve(context.Context, *SolveRequest) (*SolveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Solve not implemented")
+}
+func (UnimplementedBallisticServiceServer) SolveTable(context.Context, *SolveTableRequest) (*SolveTableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SolveTable not implemented")
 }
 func (UnimplementedBallisticServiceServer) CreateRifle(context.Context, *CreateRifleRequest) (*CreateRifleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRifle not implemented")
@@ -276,6 +291,24 @@ func _BallisticService_Solve_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BallisticServiceServer).Solve(ctx, req.(*SolveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BallisticService_SolveTable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SolveTableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).SolveTable(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_SolveTable_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).SolveTable(ctx, req.(*SolveTableRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -506,6 +539,10 @@ var BallisticService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Solve",
 			Handler:    _BallisticService_Solve_Handler,
+		},
+		{
+			MethodName: "SolveTable",
+			Handler:    _BallisticService_SolveTable_Handler,
 		},
 		{
 			MethodName: "CreateRifle",

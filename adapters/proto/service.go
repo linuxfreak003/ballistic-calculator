@@ -29,6 +29,11 @@ func (s *Service) Solve(ctx context.Context, in *pb.SolveRequest) (*pb.SolveResp
 	return s.domain.Solve(ctx, in)
 }
 
+// SolveTable ...
+func (s *Service) SolveTable(ctx context.Context, in *pb.SolveTableRequest) (*pb.SolveTableResponse, error) {
+	return s.domain.SolveTable(ctx, in)
+}
+
 // CreateLoad ...
 func (s *Service) CreateLoad(ctx context.Context, in *pb.CreateLoadRequest) (*pb.CreateLoadResponse, error) {
 	return s.domain.CreateLoad(ctx, in)

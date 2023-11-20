@@ -29,6 +29,23 @@ func NewService(repo repository.Repository) *Service {
 	}
 }
 
+// BallisticSolutionToProto ...
+func BallisticSolutionToProto(s *ballistic.Solution) *pb.Solution {
+	return &pb.Solution{
+		Range:      int64(s.Range),
+		RawRange:   s.RawRange,
+		Drop:       s.Drop,
+		DropMoa:    s.DropMOA,
+		Time:       s.Time,
+		Windage:    s.Windage,
+		WindageMoa: s.WindageMOA,
+		Energy:     s.Energy,
+		Velocity:   s.Velocity,
+		VelocityX:  s.VelocityX,
+		VelocityY:  s.VelocityY,
+	}
+}
+
 // Solve ...
 func (s *Service) Solve(ctx context.Context, in *pb.SolveRequest) (*pb.SolveResponse, error) {
 	log.Infof("Solve called")
@@ -53,24 +70,43 @@ func (s *Service) Solve(ctx context.Context, in *pb.SolveRequest) (*pb.SolveResp
 	}
 
 	solver := ballistic.NewSolver(r.ToBallistic(), e.ToBallistic(), l.ToBallistic(), true)
-	solutionSet := solver.Generate(0, 1400, 1)
-
-	solutions := slice.Map(solutionSet, func(s *ballistic.Solution) *pb.Solution {
-		return &pb.Solution{
-			Range:      int64(s.Range),
-			RawRange:   s.RawRange,
-			Drop:       s.Drop,
-			DropMoa:    s.DropMOA,
-			Time:       s.Time,
-			Windage:    s.Windage,
-			WindageMoa: s.WindageMOA,
-			Energy:     s.Energy,
-			Velocity:   s.Velocity,
-			VelocityX:  s.VelocityX,
-			VelocityY:  s.VelocityY,
-		}
-	})
+	solution, err := solver.SolveFor(int(in.GetRange()))
+	if err != nil {
+		return nil, err
+	}
 	return &pb.SolveResponse{
+		Solution: BallisticSolutionToProto(solution),
+	}, nil
+}
+
+// SolveTable ...
+func (s *Service) SolveTable(ctx context.Context, in *pb.SolveTableRequest) (*pb.SolveTableResponse, error) {
+	log.Infof("SolveTable called")
+	scenario, err := s.repo.GetScenario(ctx, in.ScenarioId)
+	if err != nil {
+		return nil, err
+	}
+
+	r, err := s.repo.GetRifle(ctx, scenario.RifleId)
+	if err != nil {
+		return nil, err
+	}
+
+	e, err := s.repo.GetEnvironment(ctx, scenario.EnvironmentId)
+	if err != nil {
+		return nil, err
+	}
+
+	l, err := s.repo.GetLoad(ctx, scenario.LoadId)
+	if err != nil {
+		return nil, err
+	}
+
+	solver := ballistic.NewSolver(r.ToBallistic(), e.ToBallistic(), l.ToBallistic(), true)
+	solutionSet := solver.Generate(0, int(in.GetMaxRange()), int(in.GetIncrement()))
+
+	solutions := slice.Map(solutionSet, BallisticSolutionToProto)
+	return &pb.SolveTableResponse{
 		Solutions: solutions,
 	}, nil
 }
