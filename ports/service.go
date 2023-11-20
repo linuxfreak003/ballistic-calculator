@@ -9,6 +9,7 @@ import (
 // Service ...
 type Service interface {
 	Solve(context.Context, *pb.SolveRequest) (*pb.SolveResponse, error)
+	SolveTable(context.Context, *pb.SolveTableRequest) (*pb.SolveTableResponse, error)
 
 	// Rifle
 	CreateRifle(context.Context, *pb.CreateRifleRequest) (*pb.CreateRifleResponse, error)

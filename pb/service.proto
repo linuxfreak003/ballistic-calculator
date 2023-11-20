@@ -13,7 +13,11 @@ service BallisticService {
   rpc Solve(SolveRequest) returns (SolveResponse) {
     option (google.api.http).post = "/ballistic/solve";
     option (google.api.http).body = "*";
-  }
+  };
+  rpc SolveTable(SolveTableRequest) returns (SolveTableResponse) {
+    option (google.api.http).post = "/ballistic/solvetable";
+    option (google.api.http).body = "*";
+  };
 
   // Rifle Methods
   rpc CreateRifle(CreateRifleRequest) returns (CreateRifleResponse) {
