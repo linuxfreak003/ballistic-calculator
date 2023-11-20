@@ -103,7 +103,7 @@ func (s *Service) SolveTable(ctx context.Context, in *pb.SolveTableRequest) (*pb
 	}
 
 	solver := ballistic.NewSolver(r.ToBallistic(), e.ToBallistic(), l.ToBallistic(), true)
-	solutionSet := solver.Generate(0, 1400, 1)
+	solutionSet := solver.Generate(0, int(in.GetMaxRange()), int(in.GetIncrement()))
 
 	solutions := slice.Map(solutionSet, BallisticSolutionToProto)
 	return &pb.SolveTableResponse{
