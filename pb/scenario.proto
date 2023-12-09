@@ -10,10 +10,14 @@ message CreateScenarioResponse {
   Scenario scenario = 1;
 }
 
-message ListScenariosRequest {}
+message ListScenariosRequest {
+  uint32 page_size = 1;
+  string page_token = 2;
+}
 
 message ListScenariosResponse {
   repeated Scenario scenarios = 1;
+  string next_page_token = 2;
 }
 
 message GetScenarioRequest {

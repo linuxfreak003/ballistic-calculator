@@ -10,10 +10,14 @@ message CreateLoadResponse {
   Load load = 1;
 }
 
-message ListLoadsRequest {}
+message ListLoadsRequest {
+  uint32 page_size = 1;
+  string page_token = 2;
+}
 
 message ListLoadsResponse {
   repeated Load loads = 1;
+  string next_page_token = 2;
 }
 
 message GetLoadRequest {

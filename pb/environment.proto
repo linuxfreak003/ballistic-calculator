@@ -10,10 +10,14 @@ message CreateEnvironmentResponse {
   Environment environment = 1;
 }
 
-message ListEnvironmentsRequest {}
+message ListEnvironmentsRequest {
+  uint32 page_size = 1;
+  string page_token = 2;
+}
 
 message ListEnvironmentsResponse {
   repeated Environment environments = 1;
+  string next_page_token = 2;
 }
 
 message GetEnvironmentRequest {

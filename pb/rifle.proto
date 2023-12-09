@@ -10,10 +10,14 @@ message CreateRifleResponse {
   Rifle rifle = 1;
 }
 
-message ListRiflesRequest {}
+message ListRiflesRequest {
+  uint32 page_size = 1;
+  string page_token = 2;
+}
 
 message ListRiflesResponse {
   repeated Rifle rifles = 1;
+  string next_page_token = 2;
 }
 
 message GetRifleRequest {
