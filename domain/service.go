@@ -128,15 +128,21 @@ func (s *Service) CreateLoad(ctx context.Context, in *pb.CreateLoadRequest) (*pb
 }
 
 // ListLoads ...
-func (s *Service) ListLoads(ctx context.Context, _ *pb.ListLoadsRequest) (*pb.ListLoadsResponse, error) {
+func (s *Service) ListLoads(ctx context.Context, req *pb.ListLoadsRequest) (*pb.ListLoadsResponse, error) {
 	log.Infof("ListLoads called")
-	loads, err := s.repo.ListLoads(ctx)
+
+	var r *repository.ListRequest
+	r = r.FromProto(req)
+
+	loads, res, err := s.repo.ListLoads(ctx, r)
 	if err != nil {
 		log.Errorf("could not list loads: %v", err)
 		return nil, err
 	}
+
 	return &pb.ListLoadsResponse{
-		Loads: slice.Map(loads, func(l *repository.Load) *pb.Load { return l.ToProto() }),
+		Loads:         slice.Map(loads, func(l *repository.Load) *pb.Load { return l.ToProto() }),
+		NextPageToken: res.GetNextPageToken(),
 	}, nil
 }
 
@@ -171,15 +177,21 @@ func (s *Service) CreateRifle(ctx context.Context, in *pb.CreateRifleRequest) (*
 }
 
 // ListRifles ...
-func (s *Service) ListRifles(ctx context.Context, _ *pb.ListRiflesRequest) (*pb.ListRiflesResponse, error) {
+func (s *Service) ListRifles(ctx context.Context, req *pb.ListRiflesRequest) (*pb.ListRiflesResponse, error) {
 	log.Infof("ListRifles called")
-	rifles, err := s.repo.ListRifles(ctx)
+
+	var r *repository.ListRequest
+	r = r.FromProto(req)
+
+	rifles, res, err := s.repo.ListRifles(ctx, r)
 	if err != nil {
 		log.Errorf("could not list rifles: %v", err)
 		return nil, err
 	}
+
 	return &pb.ListRiflesResponse{
-		Rifles: slice.Map(rifles, func(r *repository.Rifle) *pb.Rifle { return r.ToProto() }),
+		Rifles:        slice.Map(rifles, func(r *repository.Rifle) *pb.Rifle { return r.ToProto() }),
+		NextPageToken: res.GetNextPageToken(),
 	}, nil
 }
 
@@ -214,26 +226,34 @@ func (s *Service) CreateEnvironment(ctx context.Context, in *pb.CreateEnvironmen
 }
 
 // ListEnvironments ...
-func (s *Service) ListEnvironments(ctx context.Context, _ *pb.ListEnvironmentsRequest) (*pb.ListEnvironmentsResponse, error) {
+func (s *Service) ListEnvironments(ctx context.Context, req *pb.ListEnvironmentsRequest) (*pb.ListEnvironmentsResponse, error) {
 	log.Infof("ListEnvironments called")
-	environments, err := s.repo.ListEnvironments(ctx)
+
+	var r *repository.ListRequest
+	r = r.FromProto(req)
+
+	environments, res, err := s.repo.ListEnvironments(ctx, r)
 	if err != nil {
 		log.Errorf("could not list environments: %v", err)
 		return nil, err
 	}
+
 	return &pb.ListEnvironmentsResponse{
-		Environments: slice.Map(environments, func(r *repository.Environment) *pb.Environment { return r.ToProto() }),
+		Environments:  slice.Map(environments, func(r *repository.Environment) *pb.Environment { return r.ToProto() }),
+		NextPageToken: res.GetNextPageToken(),
 	}, nil
 }
 
 // GetEnvironment ...
 func (s *Service) GetEnvironment(ctx context.Context, in *pb.GetEnvironmentRequest) (*pb.GetEnvironmentResponse, error) {
 	log.Infof("GetEnvironment called")
+
 	environment, err := s.repo.GetEnvironment(ctx, in.EnvironmentId)
 	if err != nil {
 		log.Errorf("could not get environment: %v", err)
 		return nil, err
 	}
+
 	return &pb.GetEnvironmentResponse{
 		Environment: environment.ToProto(),
 	}, nil
@@ -242,6 +262,7 @@ func (s *Service) GetEnvironment(ctx context.Context, in *pb.GetEnvironmentReque
 // CreateScenario ...
 func (s *Service) CreateScenario(ctx context.Context, in *pb.CreateScenarioRequest) (*pb.CreateScenarioResponse, error) {
 	log.Infof("CreateScenario called")
+
 	var r *repository.Scenario
 	r = r.FromProto(in.GetScenario())
 
@@ -251,32 +272,41 @@ func (s *Service) CreateScenario(ctx context.Context, in *pb.CreateScenarioReque
 		return nil, err
 	}
 	r.ScenarioId = id
+
 	return &pb.CreateScenarioResponse{
 		Scenario: r.ToProto(),
 	}, nil
 }
 
 // ListScenarios ...
-func (s *Service) ListScenarios(ctx context.Context, _ *pb.ListScenariosRequest) (*pb.ListScenariosResponse, error) {
+func (s *Service) ListScenarios(ctx context.Context, req *pb.ListScenariosRequest) (*pb.ListScenariosResponse, error) {
 	log.Infof("ListScenarios called")
-	scenarios, err := s.repo.ListScenarios(ctx)
+
+	var r *repository.ListRequest
+	r = r.FromProto(req)
+
+	scenarios, res, err := s.repo.ListScenarios(ctx, r)
 	if err != nil {
 		log.Errorf("could not list scenarios: %v", err)
 		return nil, err
 	}
+
 	return &pb.ListScenariosResponse{
-		Scenarios: slice.Map(scenarios, func(r *repository.Scenario) *pb.Scenario { return r.ToProto() }),
+		Scenarios:     slice.Map(scenarios, func(r *repository.Scenario) *pb.Scenario { return r.ToProto() }),
+		NextPageToken: res.GetNextPageToken(),
 	}, nil
 }
 
 // GetScenario ...
 func (s *Service) GetScenario(ctx context.Context, in *pb.GetScenarioRequest) (*pb.GetScenarioResponse, error) {
 	log.Infof("GetScenario called")
+
 	scenario, err := s.repo.GetScenario(ctx, in.ScenarioId)
 	if err != nil {
 		log.Errorf("could not get scenario: %v", err)
 		return nil, err
 	}
+
 	return &pb.GetScenarioResponse{
 		Scenario: scenario.ToProto(),
 	}, nil

@@ -58,7 +58,7 @@ func (r *repo) CreateLoad(ctx context.Context, load *ports.Load) (int64, error) 
 }
 
 // ListLoads ...
-func (r *repo) ListLoads(ctx context.Context) (loads []*ports.Load, err error) {
+func (r *repo) ListLoads(ctx context.Context, req *ports.ListRequest) (loads []*ports.Load, res *ports.ListResponse, err error) {
 	query := `SELECT
 		id,
 		bullet_caliber,
@@ -70,7 +70,7 @@ func (r *repo) ListLoads(ctx context.Context) (loads []*ports.Load, err error) {
 		FROM loads;`
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	for rows.Next() {
@@ -88,7 +88,7 @@ func (r *repo) ListLoads(ctx context.Context) (loads []*ports.Load, err error) {
 			&load.Bullet.Length,
 			&load.MuzzleVelocity,
 		); err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		loads = append(loads, load)
 	}
@@ -153,7 +153,7 @@ func (r *repo) CreateRifle(ctx context.Context, in *ports.Rifle) (int64, error) 
 }
 
 // ListRifles ...
-func (r *repo) ListRifles(ctx context.Context) ([]*ports.Rifle, error) {
+func (r *repo) ListRifles(ctx context.Context, req *ports.ListRequest) ([]*ports.Rifle, *ports.ListResponse, error) {
 	query := `SELECT
 		id,
 		name,
@@ -165,7 +165,7 @@ func (r *repo) ListRifles(ctx context.Context) ([]*ports.Rifle, error) {
 	rifles := []*ports.Rifle{}
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute query: %v", err)
+		return nil, nil, fmt.Errorf("could not execute query: %v", err)
 	}
 	for rows.Next() {
 		rifle := &ports.Rifle{}
@@ -179,7 +179,7 @@ func (r *repo) ListRifles(ctx context.Context) ([]*ports.Rifle, error) {
 		)
 		rifles = append(rifles, rifle)
 	}
-	return rifles, nil
+	return rifles, nil, nil
 }
 
 // GetRifle ...
@@ -243,7 +243,7 @@ func (r *repo) CreateEnvironment(ctx context.Context, in *ports.Environment) (in
 }
 
 // ListEnvironments ...
-func (r *repo) ListEnvironments(ctx context.Context) ([]*ports.Environment, error) {
+func (r *repo) ListEnvironments(ctx context.Context, req *ports.ListRequest) ([]*ports.Environment, *ports.ListResponse, error) {
 	query := `SELECT
 		id,
 		temperature,
@@ -259,7 +259,7 @@ func (r *repo) ListEnvironments(ctx context.Context) ([]*ports.Environment, erro
 	environments := []*ports.Environment{}
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute query: %v", err)
+		return nil, nil, fmt.Errorf("could not execute query: %v", err)
 	}
 	for rows.Next() {
 		env := &ports.Environment{}
@@ -277,7 +277,7 @@ func (r *repo) ListEnvironments(ctx context.Context) ([]*ports.Environment, erro
 		)
 		environments = append(environments, env)
 	}
-	return environments, nil
+	return environments, nil, nil
 }
 
 // GetEnvironment ...
@@ -339,7 +339,7 @@ func (r *repo) CreateScenario(ctx context.Context, in *ports.Scenario) (int64, e
 }
 
 // ListScenarios ...
-func (r *repo) ListScenarios(ctx context.Context) ([]*ports.Scenario, error) {
+func (r *repo) ListScenarios(ctx context.Context, req *ports.ListRequest) ([]*ports.Scenario, *ports.ListResponse, error) {
 	query := `SELECT
 		id,
 		name,
@@ -350,7 +350,7 @@ func (r *repo) ListScenarios(ctx context.Context) ([]*ports.Scenario, error) {
 	scenarios := []*ports.Scenario{}
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute query: %v", err)
+		return nil, nil, fmt.Errorf("could not execute query: %v", err)
 	}
 	for rows.Next() {
 		s := &ports.Scenario{}
@@ -363,7 +363,7 @@ func (r *repo) ListScenarios(ctx context.Context) ([]*ports.Scenario, error) {
 		)
 		scenarios = append(scenarios, s)
 	}
-	return scenarios, nil
+	return scenarios, nil, nil
 }
 
 // GetScenario ...
