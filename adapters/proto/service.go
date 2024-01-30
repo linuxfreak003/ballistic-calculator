@@ -2,21 +2,30 @@ package proto
 
 import (
 	"context"
+	"os"
 
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 	"github.com/linuxfreak003/ballistic-calculator/ports"
+	log "github.com/sirupsen/logrus"
 )
 
 // NewService ...
 func NewService(s ports.Service) *Service {
+	l := log.New()
+	l.SetFormatter(&log.JSONFormatter{})
+	l.SetOutput(os.Stdout)
+	l.SetLevel(log.DebugLevel)
+
 	return &Service{
 		domain: s,
+		log:    l,
 	}
 }
 
 // Service ...
 type Service struct {
 	domain ports.Service
+	log    *log.Logger
 	unimplementedBallisticServiceServer
 }
 
@@ -36,6 +45,7 @@ func (s *Service) SolveTable(ctx context.Context, in *pb.SolveTableRequest) (*pb
 
 // CreateLoad ...
 func (s *Service) CreateLoad(ctx context.Context, in *pb.CreateLoadRequest) (*pb.CreateLoadResponse, error) {
+	s.log.WithField("request", in).Infof("proto adapter in")
 	return s.domain.CreateLoad(ctx, in)
 }
 
@@ -87,6 +97,11 @@ func (s *Service) CreateScenario(ctx context.Context, in *pb.CreateScenarioReque
 // ListScenarios ...
 func (s *Service) ListScenarios(ctx context.Context, in *pb.ListScenariosRequest) (*pb.ListScenariosResponse, error) {
 	return s.domain.ListScenarios(ctx, in)
+}
+
+// UpdateScenario ...
+func (s *Service) UpdateScenario(ctx context.Context, in *pb.UpdateScenarioRequest) (*pb.UpdateScenarioResponse, error) {
+	return s.domain.UpdateScenario(ctx, in)
 }
 
 // GetScenario ...

@@ -39,4 +39,5 @@ message Environment {
   bool pressure_is_absolute = 8;
   double latitude = 9;
   double azimuth = 10;
+  string name = 11;
 }

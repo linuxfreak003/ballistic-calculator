@@ -29,5 +29,6 @@ type Service interface {
 	// Scenario
 	CreateScenario(context.Context, *pb.CreateScenarioRequest) (*pb.CreateScenarioResponse, error)
 	ListScenarios(context.Context, *pb.ListScenariosRequest) (*pb.ListScenariosResponse, error)
+	UpdateScenario(context.Context, *pb.UpdateScenarioRequest) (*pb.UpdateScenarioResponse, error)
 	GetScenario(context.Context, *pb.GetScenarioRequest) (*pb.GetScenarioResponse, error)
 }

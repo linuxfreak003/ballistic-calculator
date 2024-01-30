@@ -70,6 +70,10 @@ service BallisticService {
     option (google.api.http).post = "/ballistic/listscenarios";
     option (google.api.http).body = "*";
   };
+  rpc UpdateScenario(UpdateScenarioRequest) returns (UpdateScenarioResponse) {
+    option (google.api.http).post = "/ballistic/updatescenario";
+    option (google.api.http).body = "*";
+  };
   rpc GetScenario(GetScenarioRequest) returns (GetScenarioResponse) {
     option (google.api.http).post = "/ballistic/getscenario";
     option (google.api.http).body = "*";

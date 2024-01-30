@@ -2,6 +2,7 @@ package domain
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/linuxfreak003/ballistic-calculator/pb"
@@ -113,7 +114,10 @@ func (s *Service) SolveTable(ctx context.Context, in *pb.SolveTableRequest) (*pb
 
 // CreateLoad ...
 func (s *Service) CreateLoad(ctx context.Context, in *pb.CreateLoadRequest) (*pb.CreateLoadResponse, error) {
-	log.Infof("CreateLoad called")
+	log.WithField("req", in).Infof("CreateLoad called")
+	if in.GetLoad().GetMuzzleVelocity() == 0 {
+		return nil, fmt.Errorf("muzzle velocity can not be 0")
+	}
 	var load *repository.Load
 	load = load.FromProto(in.GetLoad())
 	id, err := s.repo.CreateLoad(ctx, load)
@@ -122,9 +126,11 @@ func (s *Service) CreateLoad(ctx context.Context, in *pb.CreateLoadRequest) (*pb
 		return nil, err
 	}
 	load.LoadId = id
-	return &pb.CreateLoadResponse{
+	res := &pb.CreateLoadResponse{
 		Load: load.ToProto(),
-	}, nil
+	}
+	log.WithField("response", res).Infof("CreateLoad Returning")
+	return res, nil
 }
 
 // ListLoads ...
@@ -263,6 +269,12 @@ func (s *Service) GetEnvironment(ctx context.Context, in *pb.GetEnvironmentReque
 func (s *Service) CreateScenario(ctx context.Context, in *pb.CreateScenarioRequest) (*pb.CreateScenarioResponse, error) {
 	log.Infof("CreateScenario called")
 
+	if in.GetScenario().GetEnvironmentId() == 0 ||
+		in.GetScenario().GetLoadId() == 0 ||
+		in.Scenario.GetRifleId() == 0 {
+		return nil, fmt.Errorf("ids can not be 0")
+	}
+
 	var r *repository.Scenario
 	r = r.FromProto(in.GetScenario())
 
@@ -295,6 +307,12 @@ func (s *Service) ListScenarios(ctx context.Context, req *pb.ListScenariosReques
 		Scenarios:     slice.Map(scenarios, func(r *repository.Scenario) *pb.Scenario { return r.ToProto() }),
 		NextPageToken: res.GetNextPageToken(),
 	}, nil
+}
+
+// UpdateScenario ...
+func (s *Service) UpdateScenario(ctx context.Context, in *pb.UpdateScenarioRequest) (*pb.UpdateScenarioResponse, error) {
+	log.WithContext(ctx).WithField("request", in).Infof("UpdateScenario called")
+	return nil, fmt.Errorf("unimplemented")
 }
 
 // GetScenario ...

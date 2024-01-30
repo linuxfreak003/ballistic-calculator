@@ -17,6 +17,7 @@ type Environment struct {
 	PressureIsAbsolute bool    `json:"pressure_is_absolute"` // If true, only Pressure will be used
 	Latitude           float64 `json:"latitude"`             // Latitude (deg)
 	Azimuth            float64 `json:"azimuth"`              // Azimuth of fire (deg)
+	Name               string  `json:"name"`
 }
 
 // FromProto ...
@@ -35,6 +36,7 @@ func (l *Environment) FromProto(proto *pb.Environment) *Environment {
 	l.PressureIsAbsolute = proto.GetPressureIsAbsolute()
 	l.Latitude = proto.GetLatitude()
 	l.Azimuth = proto.GetAzimuth()
+	l.Name = proto.GetName()
 	return l
 }
 
@@ -54,6 +56,7 @@ func (l *Environment) ToProto() *pb.Environment {
 		PressureIsAbsolute: l.PressureIsAbsolute,
 		Latitude:           l.Latitude,
 		Azimuth:            l.Azimuth,
+		Name:               l.Name,
 	}
 }
 

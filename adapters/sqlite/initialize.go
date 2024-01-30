@@ -30,7 +30,8 @@ func InitializeDatabase(db *sql.DB) error {
 		bullet_bc_value FLOAT,
 		bullet_bc_drag_func INTEGER,
 		bullet_length FLOAT,
-		muzzle_velocity FLOAT
+		muzzle_velocity FLOAT,
+		name TEXT
 	)`
 	_, err = db.ExecContext(ctx, query)
 	if err != nil {
@@ -47,7 +48,8 @@ func InitializeDatabase(db *sql.DB) error {
 		wind_speed FLOAT,
 		pressure_is_absolute BOOL,
 		latitude FLOAT,
-		azimuth FLOAT
+		azimuth FLOAT,
+		name TEXT
 	)`
 	_, err = db.ExecContext(ctx, query)
 	if err != nil {

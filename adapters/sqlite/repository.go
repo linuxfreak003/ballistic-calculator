@@ -37,8 +37,9 @@ func (r *repo) CreateLoad(ctx context.Context, load *ports.Load) (int64, error) 
 		bullet_bc_value,
 		bullet_bc_drag_func,
 		bullet_length,
-		muzzle_velocity
-	) VALUES (?,?,?,?,?,?);`
+		muzzle_velocity,
+		name
+	) VALUES (?,?,?,?,?,?,?);`
 	res, err := r.db.ExecContext(ctx, query,
 		load.Bullet.Caliber,
 		load.Bullet.Weight,
@@ -46,6 +47,7 @@ func (r *repo) CreateLoad(ctx context.Context, load *ports.Load) (int64, error) 
 		load.Bullet.BC.DragFunc,
 		load.Bullet.Length,
 		load.MuzzleVelocity,
+		load.Name,
 	)
 	if err != nil {
 		return 0, fmt.Errorf("could not execute query: %v", err)
@@ -66,7 +68,8 @@ func (r *repo) ListLoads(ctx context.Context, req *ports.ListRequest) (loads []*
 		bullet_bc_value,
 		bullet_bc_drag_func,
 		bullet_length,
-		muzzle_velocity
+		muzzle_velocity,
+		name
 		FROM loads;`
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
@@ -87,6 +90,7 @@ func (r *repo) ListLoads(ctx context.Context, req *ports.ListRequest) (loads []*
 			&load.Bullet.BC.DragFunc,
 			&load.Bullet.Length,
 			&load.MuzzleVelocity,
+			&load.Name,
 		); err != nil {
 			return nil, nil, err
 		}
@@ -104,7 +108,8 @@ func (r *repo) GetLoad(ctx context.Context, id int64) (*ports.Load, error) {
 		bullet_bc_value,
 		bullet_bc_drag_func,
 		bullet_length,
-		muzzle_velocity
+		muzzle_velocity,
+		name
 	FROM loads WHERE id = ?;`
 	row := r.db.QueryRowContext(ctx, query, id)
 	load := &ports.Load{
@@ -120,6 +125,7 @@ func (r *repo) GetLoad(ctx context.Context, id int64) (*ports.Load, error) {
 		&load.Bullet.BC.DragFunc,
 		&load.Bullet.Length,
 		&load.MuzzleVelocity,
+		&load.Name,
 	); err != nil {
 		return nil, fmt.Errorf("could not scan load: %v", err)
 	}
@@ -219,8 +225,9 @@ func (r *repo) CreateEnvironment(ctx context.Context, in *ports.Environment) (in
 		wind_speed,
 		pressure_is_absolute,
 		latitude,
-		azimuth
-	) VALUES (?,?,?,?,?,?,?,?,?);`
+		azimuth,
+		name
+	) VALUES (?,?,?,?,?,?,?,?,?,?);`
 	res, err := r.db.ExecContext(ctx, query,
 		in.Temperature,
 		in.Altitude,
@@ -231,6 +238,7 @@ func (r *repo) CreateEnvironment(ctx context.Context, in *ports.Environment) (in
 		in.PressureIsAbsolute,
 		in.Latitude,
 		in.Azimuth,
+		in.Name,
 	)
 	if err != nil {
 		return 0, fmt.Errorf("could not execute query: %v", err)
@@ -254,7 +262,8 @@ func (r *repo) ListEnvironments(ctx context.Context, req *ports.ListRequest) ([]
 		wind_speed,
 		pressure_is_absolute,
 		latitude,
-		azimuth
+		azimuth,
+		name
 	FROM environments;`
 	environments := []*ports.Environment{}
 	rows, err := r.db.QueryContext(ctx, query)
@@ -274,6 +283,7 @@ func (r *repo) ListEnvironments(ctx context.Context, req *ports.ListRequest) ([]
 			&env.PressureIsAbsolute,
 			&env.Latitude,
 			&env.Azimuth,
+			&env.Name,
 		)
 		environments = append(environments, env)
 	}
@@ -292,7 +302,8 @@ func (r *repo) GetEnvironment(ctx context.Context, id int64) (*ports.Environment
 		wind_speed,
 		pressure_is_absolute,
 		latitude,
-		azimuth
+		azimuth,
+		name
 	FROM environments WHERE id = ?;`
 	row := r.db.QueryRowContext(ctx, query, id)
 	env := &ports.Environment{}
@@ -307,6 +318,7 @@ func (r *repo) GetEnvironment(ctx context.Context, id int64) (*ports.Environment
 		&env.PressureIsAbsolute,
 		&env.Latitude,
 		&env.Azimuth,
+		&env.Name,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("could not scan environment: %v", err)

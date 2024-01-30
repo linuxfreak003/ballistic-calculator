@@ -34,6 +34,7 @@ message Load {
   double muzzle_velocity = 3;
   string powder = 4; // optional
   double powder_charge = 5; // optional
+  string name = 6;
 }
 
 message Bullet {
@@ -45,7 +46,7 @@ message Bullet {
 
 message BallisticCoefficient {
   double value = 1;
-  DragFunction function = 2;
+  DragFunction drag_function = 2;
 }
 
 enum DragFunction {

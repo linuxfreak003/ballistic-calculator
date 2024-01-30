@@ -3,19 +3,27 @@ package main
 import (
 	"context"
 	"flag"
-	"log"
 	"net/http"
+	"os"
 	"strings"
+	"time"
 
-	"github.com/golang/glog"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+func init() {
+	log.SetFormatter(&log.JSONFormatter{})
+	log.SetOutput(os.Stdout)
+}
+
 var (
-	ballisticEndpoint = flag.String("ballistic-endpoint", "localhost:50051", "endpoint of ballsitic")
+	ballisticEndpoint = flag.String("ballistic-endpoint", "localhost:50051", "endpoint of ballistic server")
+	port              = flag.String("port", "8080", "port to listen on")
 )
 
 func allowCORS(h http.Handler) http.Handler {
@@ -39,17 +47,19 @@ func preflightHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", strings.Join(headers, ","))
 	methods := []string{"GET", "HEAD", "POST", "PUT", "DELETE"}
 	w.Header().Set("Access-Control-Allow-Methods", strings.Join(methods, ","))
-	glog.Infof("preflight request for %s", r.URL.Path)
+	log.Infof("preflight request for %s", r.URL.Path)
 }
 
 // RunEndPoint ...
 func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	mux := runtime.NewServeMux(opts...)
-	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	dialOpts := []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithTimeout(time.Second * 10),
+	}
 	err := pb.RegisterBallisticServiceHandlerFromEndpoint(ctx, mux, *ballisticEndpoint, dialOpts)
 	if err != nil {
 		return err
@@ -62,9 +72,8 @@ func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
 
 func main() {
 	flag.Parse()
-	defer glog.Flush()
 
-	if err := RunEndPoint(":8080"); err != nil {
-		glog.Fatal(err)
+	if err := RunEndPoint(":" + *port); err != nil {
+		log.Fatal(err)
 	}
 }

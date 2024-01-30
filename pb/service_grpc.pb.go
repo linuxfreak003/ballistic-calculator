@@ -32,6 +32,7 @@ const (
 	BallisticService_GetEnvironment_FullMethodName    = "/pb.BallisticService/GetEnvironment"
 	BallisticService_CreateScenario_FullMethodName    = "/pb.BallisticService/CreateScenario"
 	BallisticService_ListScenarios_FullMethodName     = "/pb.BallisticService/ListScenarios"
+	BallisticService_UpdateScenario_FullMethodName    = "/pb.BallisticService/UpdateScenario"
 	BallisticService_GetScenario_FullMethodName       = "/pb.BallisticService/GetScenario"
 )
 
@@ -56,6 +57,7 @@ type BallisticServiceClient interface {
 	// Scenario Methods
 	CreateScenario(ctx context.Context, in *CreateScenarioRequest, opts ...grpc.CallOption) (*CreateScenarioResponse, error)
 	ListScenarios(ctx context.Context, in *ListScenariosRequest, opts ...grpc.CallOption) (*ListScenariosResponse, error)
+	UpdateScenario(ctx context.Context, in *UpdateScenarioRequest, opts ...grpc.CallOption) (*UpdateScenarioResponse, error)
 	GetScenario(ctx context.Context, in *GetScenarioRequest, opts ...grpc.CallOption) (*GetScenarioResponse, error)
 }
 
@@ -184,6 +186,15 @@ func (c *ballisticServiceClient) ListScenarios(ctx context.Context, in *ListScen
 	return out, nil
 }
 
+func (c *ballisticServiceClient) UpdateScenario(ctx context.Context, in *UpdateScenarioRequest, opts ...grpc.CallOption) (*UpdateScenarioResponse, error) {
+	out := new(UpdateScenarioResponse)
+	err := c.cc.Invoke(ctx, BallisticService_UpdateScenario_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *ballisticServiceClient) GetScenario(ctx context.Context, in *GetScenarioRequest, opts ...grpc.CallOption) (*GetScenarioResponse, error) {
 	out := new(GetScenarioResponse)
 	err := c.cc.Invoke(ctx, BallisticService_GetScenario_FullMethodName, in, out, opts...)
@@ -214,6 +225,7 @@ type BallisticServiceServer interface {
 	// Scenario Methods
 	CreateScenario(context.Context, *CreateScenarioRequest) (*CreateScenarioResponse, error)
 	ListScenarios(context.Context, *ListScenariosRequest) (*ListScenariosResponse, error)
+	UpdateScenario(context.Context, *UpdateScenarioRequest) (*UpdateScenarioResponse, error)
 	GetScenario(context.Context, *GetScenarioRequest) (*GetScenarioResponse, error)
 	mustEmbedUnimplementedBallisticServiceServer()
 }
@@ -260,6 +272,9 @@ func (UnimplementedBallisticServiceServer) CreateScenario(context.Context, *Crea
 }
 func (UnimplementedBallisticServiceServer) ListScenarios(context.Context, *ListScenariosRequest) (*ListScenariosResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListScenarios not implemented")
+}
+func (UnimplementedBallisticServiceServer) UpdateScenario(context.Context, *UpdateScenarioRequest) (*UpdateScenarioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateScenario not implemented")
 }
 func (UnimplementedBallisticServiceServer) GetScenario(context.Context, *GetScenarioRequest) (*GetScenarioResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetScenario not implemented")
@@ -511,6 +526,24 @@ func _BallisticService_ListScenarios_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BallisticService_UpdateScenario_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateScenarioRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BallisticServiceServer).UpdateScenario(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BallisticService_UpdateScenario_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BallisticServiceServer).UpdateScenario(ctx, req.(*UpdateScenarioRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BallisticService_GetScenario_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetScenarioRequest)
 	if err := dec(in); err != nil {
@@ -587,6 +620,10 @@ var BallisticService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListScenarios",
 			Handler:    _BallisticService_ListScenarios_Handler,
+		},
+		{
+			MethodName: "UpdateScenario",
+			Handler:    _BallisticService_UpdateScenario_Handler,
 		},
 		{
 			MethodName: "GetScenario",

@@ -10,6 +10,7 @@ type Load struct {
 	LoadId         int64
 	Bullet         *Bullet
 	MuzzleVelocity float64
+	Name           string
 }
 
 // Bullet ...
@@ -38,11 +39,12 @@ func (l *Load) FromProto(proto *pb.Load) *Load {
 		Weight:  proto.GetBullet().GetWeight(),
 		BC: &Coefficient{
 			Value:    proto.GetBullet().GetBc().GetValue(),
-			DragFunc: int(proto.GetBullet().GetBc().GetFunction()),
+			DragFunc: int(proto.GetBullet().GetBc().GetDragFunction()),
 		},
 		Length: proto.GetBullet().GetLength(),
 	}
 	l.MuzzleVelocity = proto.GetMuzzleVelocity()
+	l.Name = proto.GetName()
 	return l
 }
 
@@ -57,12 +59,13 @@ func (l *Load) ToProto() *pb.Load {
 			Caliber: l.Bullet.Caliber,
 			Weight:  l.Bullet.Weight,
 			Bc: &pb.BallisticCoefficient{
-				Value:    l.Bullet.BC.Value,
-				Function: pb.DragFunction(l.Bullet.BC.DragFunc),
+				Value:        l.Bullet.BC.Value,
+				DragFunction: pb.DragFunction(l.Bullet.BC.DragFunc),
 			},
 			Length: l.Bullet.Length,
 		},
 		MuzzleVelocity: l.MuzzleVelocity,
+		Name:           l.Name,
 	}
 }
 
