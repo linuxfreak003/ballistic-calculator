@@ -19,7 +19,7 @@ func main() {
 	d := domain.NewService(r)
 	protoService := proto.NewService(d)
 
-	lis, err := net.Listen("tcp", "localhost:50051")
+	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
 		log.Fatalf("could not listen: %v", err)
 	}
