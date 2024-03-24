@@ -1,4 +1,4 @@
-package generate
+package main
 
 // PROTOS
 //go:generate go install github.com/bufbuild/buf/cmd/buf@latest
