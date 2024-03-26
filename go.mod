@@ -3,8 +3,8 @@ module github.com/linuxfreak003/ballistic-calculator
 go 1.21.4
 
 require (
-	github.com/golang/glog v1.1.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
+	github.com/lib/pq v1.10.9
 	github.com/linuxfreak003/util v0.0.7
 	github.com/mattn/go-sqlite3 v1.14.18
 	github.com/sirupsen/logrus v1.9.3

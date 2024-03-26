@@ -5,14 +5,14 @@ import (
 	"net"
 
 	"github.com/linuxfreak003/ballistic-calculator/adapters/proto"
-	"github.com/linuxfreak003/ballistic-calculator/adapters/sqlite"
+	"github.com/linuxfreak003/ballistic-calculator/adapters/sql"
 	"github.com/linuxfreak003/ballistic-calculator/domain"
 	"github.com/linuxfreak003/ballistic-calculator/pb"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	r, err := sqlite.NewRepository("sql.db")
+	r, err := sql.NewSQLiteRepository("sql.db")
 	if err != nil {
 		log.Fatalf("could not create repository: %v", err)
 	}

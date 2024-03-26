@@ -11,9 +11,10 @@ import (
 	"time"
 
 	"github.com/linuxfreak003/ballistic-calculator/adapters/proto"
-	"github.com/linuxfreak003/ballistic-calculator/adapters/sqlite"
+	"github.com/linuxfreak003/ballistic-calculator/adapters/sql"
 	"github.com/linuxfreak003/ballistic-calculator/domain"
 	"github.com/linuxfreak003/ballistic-calculator/pb"
+	"github.com/linuxfreak003/ballistic-calculator/ports/repository"
 	"google.golang.org/grpc"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -29,6 +30,10 @@ func init() {
 var (
 	ballisticEndpoint = flag.String("ballistic-endpoint", "localhost:50051", "endpoint of ballistic server")
 	port              = flag.String("port", "8080", "port to listen on")
+	pgHost            = flag.String("pg-host", "localhost", "host to connect to postgres")
+	pgPort            = flag.Int("pg-port", 5432, "port to connect to postgres")
+	pgUser            = flag.String("pg-user", "postgres", "postgres username")
+	pgPass            = flag.String("pg-pass", "", "postgres password")
 )
 
 func allowCORS(h http.Handler) http.Handler {
@@ -76,7 +81,13 @@ func StartProxy(address string, opts ...runtime.ServeMuxOption) error {
 }
 
 func StartGRPCService() {
-	r, err := sqlite.NewRepository("sql.db")
+	r, err := sql.NewPostgresRepository(&repository.PostgresConfig{
+		Host:   *pgHost,
+		Port:   *pgPort,
+		User:   *pgUser,
+		Pass:   *pgPass,
+		DBName: "postgres",
+	})
 	if err != nil {
 		log.Fatalf("could not create repository: %v", err)
 	}

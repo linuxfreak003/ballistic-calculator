@@ -1,4 +1,4 @@
-package sqlite
+package sql
 
 import (
 	"context"
@@ -6,6 +6,8 @@ import (
 	"fmt"
 
 	ports "github.com/linuxfreak003/ballistic-calculator/ports/repository"
+
+	_ "github.com/lib/pq"           // postgres
 	_ "github.com/mattn/go-sqlite3" // sqlite3
 )
 
@@ -13,8 +15,30 @@ type repo struct {
 	db *sql.DB
 }
 
-// NewRepository ...
-func NewRepository(filename string) (ports.Repository, error) {
+// NewPostgresRepository returns a new postgres repository
+func NewPostgresRepository(config *ports.PostgresConfig) (ports.Repository, error) {
+	psqlInfo := fmt.Sprintf(
+		"host=%s port=%d user=%s "+
+			"dbname=%s sslmode=disable",
+		config.Host, config.Port, config.User, config.DBName,
+	)
+
+	db, err := sql.Open("postgres", psqlInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := InitializeDatabase(db); err != nil {
+		return nil, err
+	}
+
+	return &repo{
+		db: db,
+	}, nil
+}
+
+// NewSQLiteRepository ...
+func NewSQLiteRepository(filename string) (ports.Repository, error) {
 	db, err := sql.Open("sqlite3", filename)
 	if err != nil {
 		return nil, err
