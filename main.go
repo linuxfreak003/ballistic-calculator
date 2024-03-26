@@ -34,6 +34,7 @@ var (
 	pgPort            = flag.Int("pg-port", 5432, "port to connect to postgres")
 	pgUser            = flag.String("pg-user", "postgres", "postgres username")
 	pgPass            = flag.String("pg-pass", "", "postgres password")
+	pgDBName          = flag.String("pg-dbname", "postgres", "postgres database name")
 )
 
 func allowCORS(h http.Handler) http.Handler {
@@ -86,7 +87,7 @@ func StartGRPCService() {
 		Port:   *pgPort,
 		User:   *pgUser,
 		Pass:   *pgPass,
-		DBName: "postgres",
+		DBName: *pgDBName,
 	})
 	if err != nil {
 		log.Fatalf("could not create repository: %v", err)
