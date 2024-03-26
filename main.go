@@ -14,7 +14,6 @@ import (
 	"github.com/linuxfreak003/ballistic-calculator/adapters/sql"
 	"github.com/linuxfreak003/ballistic-calculator/domain"
 	"github.com/linuxfreak003/ballistic-calculator/pb"
-	"github.com/linuxfreak003/ballistic-calculator/ports/repository"
 	"google.golang.org/grpc"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -82,13 +81,14 @@ func StartProxy(address string, opts ...runtime.ServeMuxOption) error {
 }
 
 func StartGRPCService() {
-	r, err := sql.NewPostgresRepository(&repository.PostgresConfig{
-		Host:   *pgHost,
-		Port:   *pgPort,
-		User:   *pgUser,
-		Pass:   *pgPass,
-		DBName: *pgDBName,
-	})
+	// r, err := sql.NewPostgresRepository(&repository.PostgresConfig{
+	// 	Host:   *pgHost,
+	// 	Port:   *pgPort,
+	// 	User:   *pgUser,
+	// 	Pass:   *pgPass,
+	// 	DBName: *pgDBName,
+	// })
+	r, err := sql.NewSQLiteRepository("sql.db")
 	if err != nil {
 		log.Fatalf("could not create repository: %v", err)
 	}
